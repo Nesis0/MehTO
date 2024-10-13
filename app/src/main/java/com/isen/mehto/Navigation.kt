@@ -1,8 +1,13 @@
 package com.isen.mehto
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
@@ -17,17 +22,21 @@ import androidx.compose.material3.NavigationDrawerItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.isen.mehto.ui.models.HomeScreen
 import com.isen.mehto.ui.models.SettingsScreen
+import com.isen.mehto.ui.theme.Blue60
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -44,7 +53,9 @@ private fun DrawerContent(
     onMenuClick: (String) -> Unit
 ) {
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.Gray),
     ) {
         menuItems.forEach {
             NavigationDrawerItem(
@@ -62,12 +73,23 @@ fun CustomAppBar(drawerState: DrawerState) {
     val coroutineScope = rememberCoroutineScope()
 
     TopAppBar(
+        modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Max),
         navigationIcon = {
             IconButton(onClick = { coroutineScope.launch { drawerState.open() } }) {
-                Icon(Icons.Filled.Menu, contentDescription = "")
+                Icon(Icons.Filled.Menu, contentDescription = "Menu")
             }
         },
-        title = { }
+        title = { },
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = Blue60,
+            navigationIconContentColor = Color.White
+        ),
+        actions = {
+            Image(
+                painter = painterResource(id = R.drawable.app_icon),
+                contentDescription = "Application Logo",
+            )
+        },
     )
 }
 
@@ -92,7 +114,10 @@ fun Navigation(
             topBar = { CustomAppBar( drawerState = drawerState ) }
         ) { paddingValues ->
             Column(
-                modifier = Modifier.fillMaxSize().padding(paddingValues),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues)
+                    .background(Blue60),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
