@@ -8,7 +8,7 @@ class WeatherService {
 
     fun getWeatherFromCity(city: String, country: String) {
         val (lat, lon) = getCoordinatesFromCity(city, country)
-        httpRequests.get("https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}") { response, error ->
+        httpRequests.get("https://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&appid=$apiKey") { response, error ->
             if (error != null)
                 println("Request error: ${error.message}")
             else
@@ -17,7 +17,7 @@ class WeatherService {
     }
     fun getWeatherFromCity(timeRange: String, city: String, country: String) {
         val (lat, lon) = getCoordinatesFromCity(city, country)
-        httpRequests.get("https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}") { response, error ->
+        httpRequests.get("https://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&appid=$apiKey") { response, error ->
             if (error != null)
                 println("Request error: ${error.message}")
             else
