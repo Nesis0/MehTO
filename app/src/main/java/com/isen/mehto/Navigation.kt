@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.DrawerValue
@@ -49,14 +50,21 @@ val menuItems: Array<DrawerMenu> = arrayOf (
 
 @Composable
 private fun DrawerContent(
+    drawerState: DrawerState,
     menuItems: Array<DrawerMenu>,
     onMenuClick: (String) -> Unit
 ) {
+    val coroutineScope = rememberCoroutineScope()
+
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.Gray),
     ) {
+        IconButton(onClick = { coroutineScope.launch { drawerState.close() } }) {
+            Icon(Icons.Filled.Close, contentDescription = "Menu")
+        }
+
         menuItems.forEach {
             NavigationDrawerItem(
                 label = { Text(text = it.route) },
@@ -103,7 +111,7 @@ fun Navigation(
         drawerState = drawerState,
         drawerContent = {
             ModalDrawerSheet {
-                DrawerContent(menuItems) { route ->
+                DrawerContent(drawerState, menuItems) { route ->
                     coroutineScope.launch { drawerState.close() }
                     navController.navigate(route)
                 }
