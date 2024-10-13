@@ -25,7 +25,7 @@ class WeatherService {
         }
     }
 
-    private fun getCoordinatesFromCity(city: String, country: String) {
+    private fun getCoordinatesFromCity(city: String, country: String): Coordinates {
         httpRequests.get("http://api.openweathermap.org/geo/1.0/direct?q=$city,$country&limit=5&appid=$apiKey") { response, error ->
             if (error != null) {
                 println("Request error: ${error.message}")
@@ -33,5 +33,6 @@ class WeatherService {
                 println("GET response: $response")
             }
         }
+        return Coordinates("0","0")
     }
 }
