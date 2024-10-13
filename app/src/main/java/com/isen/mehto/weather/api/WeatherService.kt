@@ -1,4 +1,4 @@
-package com.isen.mehto.api
+package com.isen.mehto.weather.api
 
 class WeatherService {
     val apiKey: String = "TOKEN"

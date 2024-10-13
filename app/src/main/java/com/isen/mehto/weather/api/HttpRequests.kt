@@ -1,4 +1,4 @@
-package com.isen.mehto.api
+package com.isen.mehto.weather.api
 
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
