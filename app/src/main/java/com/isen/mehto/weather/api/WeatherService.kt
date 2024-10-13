@@ -6,7 +6,7 @@ class WeatherService {
     private val apiKey: String = "TOKEN"
     private val httpRequests = HttpRequests()
 
-    fun getWeather(lat: String, lon: String) {
+    fun getWeatherFromCity(city: String, country: String) {
         httpRequests.get("https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}") { response, error ->
             if (error != null) {
                 println("Erreur lors de la requête GET : ${error.message}")
@@ -15,7 +15,7 @@ class WeatherService {
             }
         }
     }
-    fun getWeather(timeRange: String, lat: String, lon: String) {
+    fun getWeatherFromCity(timeRange: String, city: String, country: String) {
         httpRequests.get("https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}") { response, error ->
             if (error != null) {
                 println("Erreur lors de la requête GET : ${error.message}")
