@@ -1,5 +1,7 @@
 package com.isen.mehto.weather.api
 
+data class Coordinates(val latitude: String, val longitude: String)
+
 class WeatherService {
     private val apiKey: String = "TOKEN"
     private val httpRequests = HttpRequests()
