@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.isen.mehto.api.HttpRequests
 import com.isen.mehto.ui.theme.MehTOTheme
 
 class MainActivity : ComponentActivity() {
@@ -24,6 +25,15 @@ class MainActivity : ComponentActivity() {
                         name = "Android",
                         modifier = Modifier.padding(innerPadding)
                     )
+
+                    val httpRequests = HttpRequests()
+                    httpRequests.get("https://archlinux.org") { response, error ->
+                        if (error != null) {
+                            println("Erreur lors de la requête GET : ${error.message}")
+                        } else {
+                            println("Réponse GET : $response")
+                        }
+                    }
                 }
             }
         }
