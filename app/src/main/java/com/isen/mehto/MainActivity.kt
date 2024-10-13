@@ -26,7 +26,7 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier.padding(innerPadding)
                     )
                     val ws = WeatherService()
-                    val todayWeather = ws.getWeather("aaaaa", "bobob")
+                    val todayWeather = ws.getWeatherFromCity("Belfort", "France")
                 }
             }
         }
