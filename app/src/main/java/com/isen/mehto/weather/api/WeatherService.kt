@@ -7,6 +7,7 @@ class WeatherService {
     private val httpRequests = HttpRequests()
 
     fun getWeatherFromCity(city: String, country: String) {
+        val (lat, lon) = getCoordinatesFromCity(city, country)
         httpRequests.get("https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}") { response, error ->
             if (error != null) {
                 println("Erreur lors de la requête GET : ${error.message}")
@@ -16,6 +17,7 @@ class WeatherService {
         }
     }
     fun getWeatherFromCity(timeRange: String, city: String, country: String) {
+        val (lat, lon) = getCoordinatesFromCity(city, country)
         httpRequests.get("https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}") { response, error ->
             if (error != null) {
                 println("Erreur lors de la requête GET : ${error.message}")
