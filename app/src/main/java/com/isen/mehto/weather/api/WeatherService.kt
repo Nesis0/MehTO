@@ -1,7 +1,7 @@
 package com.isen.mehto.weather.api
 
 class WeatherService {
-    val apiKey: String = "TOKEN"
+    private val apiKey: String = "TOKEN"
 
     fun getWeather(lat: String, lon: String) {
         val httpRequests = HttpRequests()
