@@ -1,37 +1,16 @@
 package com.isen.mehto.weather.api
 
+import retrofit2.http.GET
+import retrofit2.http.Path
+
+data class CityInfo(val weather: String, val temp: String)
 data class Coordinates(val latitude: String, val longitude: String)
+const val apiKey: String = "63b335fbcbab900e14a56296d96716b4"
 
-class WeatherService {
-    private val apiKey: String = "TOKEN"
-    private val httpRequests = HttpRequests()
+interface WeatherService {
+    @GET("data/2.5/weather?lat{latitude}&lon={longitude}&appid=$apiKey")
+    suspend fun getTodayWeather(@Path("latitude") latitude: String, @Path("longitude") longitude: String): CityInfo
 
-    fun getWeatherFromCity(city: String, country: String) {
-        val (lat, lon) = getCoordinatesFromCity(city, country)
-        httpRequests.get("https://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&appid=$apiKey") { response, error ->
-            if (error != null)
-                println("Request error: ${error.message}")
-            else
-                println("GET response: $response")
-        }
-    }
-    fun getWeatherFromCity(timeRange: String, city: String, country: String) {
-        val (lat, lon) = getCoordinatesFromCity(city, country)
-        httpRequests.get("https://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&appid=$apiKey") { response, error ->
-            if (error != null)
-                println("Request error: ${error.message}")
-            else
-                println("GET response: $response")
-        }
-    }
-
-    private fun getCoordinatesFromCity(city: String, country: String): Coordinates {
-        httpRequests.get("http://api.openweathermap.org/geo/1.0/direct?q=$city,$country&limit=5&appid=$apiKey") { response, error ->
-            if (error != null)
-                println("Request error: ${error.message}")
-            else
-                println("GET response: $response")
-        }
-        return Coordinates("0","0")
-    }
+    @GET("geo/1.0/direct?q={city},{country}&limit=5&appid=$apiKey")
+    suspend fun getCoordinatesFromCity(@Path("city") city: String, @Path("country") country: String): Coordinates
 }
