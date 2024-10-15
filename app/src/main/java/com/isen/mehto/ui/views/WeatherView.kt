@@ -1,7 +1,15 @@
 package com.isen.mehto.ui.views
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.isen.mehto.ui.viewmodels.WeatherViewModel
 
@@ -9,10 +17,22 @@ import com.isen.mehto.ui.viewmodels.WeatherViewModel
 fun WeatherScreen() {
     val viewModel: WeatherViewModel = viewModel()
 
-    val city = viewModel.weather.value.city ?: "Unknown location"
-    val temperature = viewModel.weather.value.temperature
-    val weatherType = viewModel.weather.value.weatherType
-    val rainRisk = viewModel.weather.value.rainRisk
+    if (viewModel.weather.value == null) {
+        Text(text = "Unable to show weather")
+    }
 
-    Text(text = city)
+    viewModel.weather.value?.let {
+        Column(
+            Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Image(
+                painter = painterResource(id = it.weatherType.image),
+                contentDescription = "Weather Icon",
+            )
+            Text(fontSize = 32.sp, text = "${it.temperature.inCelsius} °C")
+            Text(fontSize = 24.sp, text = it.city)
+        }
+    }
 }
