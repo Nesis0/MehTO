@@ -11,7 +11,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.isen.mehto.weather.api.WeatherService
 import com.isen.mehto.ui.theme.MehTOTheme
 
 class MainActivity : ComponentActivity() {
@@ -25,8 +24,6 @@ class MainActivity : ComponentActivity() {
                         name = "Android",
                         modifier = Modifier.padding(innerPadding)
                     )
-                    val ws = WeatherService()
-                    val todayWeather = ws.getWeatherFromCity("Belfort", "France")
                 }
             }
         }
