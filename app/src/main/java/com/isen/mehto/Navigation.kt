@@ -1,6 +1,5 @@
 package com.isen.mehto
 
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -32,25 +31,24 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.isen.mehto.ui.models.HomeScreen
-import com.isen.mehto.ui.models.SettingsScreen
+import com.isen.mehto.ui.views.WeatherScreen
+import com.isen.mehto.ui.views.SettingsScreen
 import com.isen.mehto.ui.theme.Blue60
+import com.isen.mehto.ui.theme.DashedDivider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 data class DrawerMenu(val route: String, val screen: @Composable () -> Unit)
 
 val menuItems: Array<DrawerMenu> = arrayOf (
-    DrawerMenu("Home") { HomeScreen() },
+    DrawerMenu("Weather") { WeatherScreen() },
     DrawerMenu("Settings") { SettingsScreen() },
 )
 
@@ -94,16 +92,7 @@ private fun DrawerContent(
                 onClick = { onMenuClick(it.route) },
                 colors = NavigationDrawerItemDefaults.colors(unselectedContainerColor = Color.Transparent),
             )
-
-            Canvas(Modifier.fillMaxWidth()) {
-                drawLine(
-                    color = Color.Black,
-                    strokeWidth = 5f,
-                    start = Offset(30f, 0f),
-                    end = Offset(size.width - 30f, 0f),
-                    pathEffect = PathEffect.dashPathEffect(floatArrayOf(20f, 10f), 0f)
-                )
-            }
+            DashedDivider()
         }
     }
 }
