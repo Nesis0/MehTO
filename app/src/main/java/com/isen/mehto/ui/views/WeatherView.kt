@@ -21,10 +21,13 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.isen.mehto.R
 import com.isen.mehto.ui.theme.DashedDivider
 import com.isen.mehto.ui.viewmodels.WeatherViewModel
+import org.koin.androidx.compose.get
 
 @Composable
 fun WeatherScreen() {
-    val viewModel: WeatherViewModel = viewModel()
+    val viewModel = viewModel<WeatherViewModel>(
+        factory = WeatherViewModel.ViewModelFactory(get())
+    )
 
     Column(
         Modifier.fillMaxSize(),
