@@ -1,6 +1,7 @@
-package data.entity
+package data
 
-import data.CityRepository
+import data.entity.City
+import data.entity.CityDAO
 
 class OfflineCityRepository(private val cityDAO: CityDAO) : CityRepository {
     override suspend fun getAllCities(): List<City> {

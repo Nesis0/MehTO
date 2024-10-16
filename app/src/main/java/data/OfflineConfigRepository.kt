@@ -1,6 +1,7 @@
-package data.entity
+package data
 
-import data.ConfigRepository
+import data.entity.Config
+import data.entity.ConfigDAO
 
 class OfflineConfigRepository(private val configDAO: ConfigDAO) : ConfigRepository {
     override suspend fun getAllConfigs(): List<Config> {
