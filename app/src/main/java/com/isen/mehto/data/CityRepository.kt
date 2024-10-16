@@ -1,6 +1,6 @@
-package data
+package com.isen.mehto.data
 
-import data.entity.City
+import com.isen.mehto.data.entity.City
 
 interface CityRepository {
     suspend fun getAllCities(): List<City>

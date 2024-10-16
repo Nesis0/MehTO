@@ -1,4 +1,4 @@
-package data.entity
+package com.isen.mehto.data.entity
 
 import androidx.room.Delete
 import androidx.room.Insert

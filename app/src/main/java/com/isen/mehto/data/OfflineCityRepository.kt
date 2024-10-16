@@ -1,7 +1,7 @@
-package data
+package com.isen.mehto.data
 
-import data.entity.City
-import data.entity.CityDAO
+import com.isen.mehto.data.entity.City
+import com.isen.mehto.data.entity.CityDAO
 
 class OfflineCityRepository(private val cityDAO: CityDAO) : CityRepository {
     override suspend fun getAllCities(): List<City> {

@@ -1,6 +1,6 @@
-package data
+package com.isen.mehto.data
 
-import data.entity.Config
+import com.isen.mehto.data.entity.Config
 
 interface ConfigRepository {
     suspend fun getAllConfigs(): List<Config>
