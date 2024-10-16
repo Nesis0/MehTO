@@ -61,10 +61,10 @@ private fun CurrentWeather(viewModel: WeatherViewModel) {
 @Composable
 private fun WeatherWeek(viewModel: WeatherViewModel) {
     Column {
-        if (viewModel.weatherWeek.value[0] != null) DashedDivider()
+        if (viewModel.weatherWeek.value.isNotEmpty()) DashedDivider()
 
         for (weather in viewModel.weatherWeek.value) {
-            weather?.let {
+            weather.let {
                 Row(
                     Modifier
                         .height(50.dp)

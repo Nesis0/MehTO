@@ -15,17 +15,16 @@ class WeatherViewModel() : ViewModel() {
 
     private val _currentWeather: MutableState<Weather?> = mutableStateOf(null)
     val currentWeather = _currentWeather
-    private val _weatherWeek: MutableState<Array<Weather?>> = mutableStateOf(arrayOfNulls(6))
+    private val _weatherWeek: MutableState<List<Weather>> = mutableStateOf(listOf())
     val weatherWeek = _weatherWeek
 
     init {
         viewModelScope.launch {
             _currentWeather.value = weatherRepository.getWeather()
 
-            for (i in _weatherWeek.value.indices) {
-                val date = OffsetDateTime.now().plusDays(i.toLong())
-                _weatherWeek.value[i] = weatherRepository.getWeather(date)
-            }
+            val start = OffsetDateTime.now().plusDays(1)
+            val end = start.plusDays(6)
+            _weatherWeek.value = weatherRepository.getWeather(start, end)
         }
     }
 }
