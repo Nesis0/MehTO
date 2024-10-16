@@ -7,10 +7,10 @@ import androidx.room.PrimaryKey
 @Entity
 data class Config(
     @PrimaryKey
-    val key: String,
+    @ColumnInfo(name = "name")
+    val name: String,
 
-    @ColumnInfo(name = "key")
+    @ColumnInfo(name = "value")
     val value: String
-
 )
 
