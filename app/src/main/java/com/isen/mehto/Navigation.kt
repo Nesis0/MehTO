@@ -45,11 +45,11 @@ import com.isen.mehto.ui.theme.DashedDivider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-data class DrawerMenu(val route: String, val screen: @Composable () -> Unit)
+data class DrawerMenu(val displayName: String, val route: String, val screen: @Composable () -> Unit)
 
 val menuItems: Array<DrawerMenu> = arrayOf (
-    DrawerMenu("Weather") { WeatherScreen() },
-    DrawerMenu("Settings") { SettingsScreen() },
+    DrawerMenu("Home", "weather") { WeatherScreen() },
+    DrawerMenu("Settings", "settings") { SettingsScreen() },
 )
 
 @Composable
@@ -86,7 +86,7 @@ private fun DrawerContent(
                     Column(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalAlignment = Alignment.CenterHorizontally
-                    ) { Text(text = it.route) }
+                    ) { Text(text = it.displayName) }
                 },
                 selected = false,
                 onClick = { onMenuClick(it.route) },
