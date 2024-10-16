@@ -5,12 +5,12 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class City(
+data class FavoriteLocation(
     @PrimaryKey(autoGenerate = true)
-    val city_id: Int,
+    val location_id: Int,
 
-    @ColumnInfo(name = "name")
-    val name: String,
+    @ColumnInfo(name = "display_name")
+    val display_name: String,
 
     @ColumnInfo(name = "latitude")
     val latitude: Float,

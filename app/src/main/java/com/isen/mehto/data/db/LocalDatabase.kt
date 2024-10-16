@@ -4,18 +4,16 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.isen.mehto.data.entity.City
-import com.isen.mehto.data.entity.CityDAO
+import com.isen.mehto.data.entity.FavoriteLocation
+import com.isen.mehto.data.entity.FavoriteLocationDAO
 import com.isen.mehto.data.entity.Config
 import com.isen.mehto.data.entity.ConfigDAO
 
-@Database(version = 1, entities = [Config::class, City::class])
+@Database(version = 1, entities = [Config::class, FavoriteLocation::class])
 abstract class LocalDatabase : RoomDatabase() {
      abstract fun configDAO(): ConfigDAO
 
-     abstract fun cityDAO(): CityDAO
-
-
+     abstract fun FavoriteLocationDAO(): FavoriteLocationDAO
 
      companion object {
           @Volatile
