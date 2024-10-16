@@ -1,10 +1,12 @@
 package com.isen.mehto.data.entity
 
+import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 
+@Dao
 interface FavoriteLocationDAO {
     @Query("SELECT * FROM favoritelocation")
     suspend fun getAllCities(): List<FavoriteLocation>

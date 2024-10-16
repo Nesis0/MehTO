@@ -9,7 +9,7 @@ import com.isen.mehto.data.entity.FavoriteLocationDAO
 import com.isen.mehto.data.entity.Config
 import com.isen.mehto.data.entity.ConfigDAO
 
-@Database(version = 1, entities = [Config::class, FavoriteLocation::class])
+@Database(version = 1, entities = [Config::class, FavoriteLocation::class], exportSchema = false)
 abstract class LocalDatabase : RoomDatabase() {
      abstract fun configDAO(): ConfigDAO
 

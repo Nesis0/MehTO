@@ -26,7 +26,7 @@ import org.koin.androidx.compose.get
 @Composable
 fun WeatherScreen() {
     val viewModel = viewModel<WeatherViewModel>(
-        factory = WeatherViewModel.ViewModelFactory(get())
+        factory = WeatherViewModel.ViewModelFactory(get(), get())
     )
 
     Column(

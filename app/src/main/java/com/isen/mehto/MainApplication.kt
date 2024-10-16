@@ -1,7 +1,9 @@
 package com.isen.mehto
 
 import android.app.Application
+import androidx.room.Room
 import com.isen.mehto.data.OfflineConfigRepository
+import com.isen.mehto.data.db.LocalDatabase
 import com.isen.mehto.data.repositories.WeatherRepository
 import com.isen.mehto.data.repositories.impl.WeatherRepositoryImpl
 import org.koin.android.ext.koin.androidContext
@@ -16,7 +18,8 @@ class MainApplication : Application() {
             modules(
                 repositoryModule,
                 dataSourcesModule,
-                apiService
+                databaseModule,
+                apiService,
             )
         }
     }
@@ -28,5 +31,10 @@ val repositoryModule = module {
 }
 
 val dataSourcesModule = module { }
+
+val databaseModule = module {
+    single { Room.databaseBuilder(get(), LocalDatabase::class.java, "LocalDatabase").build() }
+    single { get<LocalDatabase>().configDAO() }
+}
 
 val apiService = module { }
