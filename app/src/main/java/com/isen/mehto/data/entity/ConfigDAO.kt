@@ -14,8 +14,8 @@ interface ConfigDAO {
     @Insert
     suspend fun insert(config: Config)
 
-    @Query("SELECT * FROM config WHERE name = :name")
-    suspend fun getConfig(name: String): Config?
+    @Query("SELECT value FROM config WHERE name = :name")
+    suspend fun getConfig(name: String): String?
 
     @Update
     suspend fun updateConfig(config: Config)
