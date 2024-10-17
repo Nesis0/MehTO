@@ -18,7 +18,7 @@ class WeatherRepositoryImpl(private val weatherService: WeatherServiceImpl) : We
         return weatherService.getForecast(position.latitude, position.longitude)
     }
 
-    override suspend fun getWeather(position: Position, start: OffsetDateTime, end: OffsetDateTime): List<Weather> {
-        TODO("Not yet implemented")
+    override suspend fun getCoordinatesFromCity(city: String): Position {
+        return weatherService.getCoordinatesFromCity(city)
     }
 }

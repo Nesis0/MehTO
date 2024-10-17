@@ -16,6 +16,6 @@ interface WeatherService {
     @GET("/data/2.5/forecast?lat={latitude}&lon={longitude}&appid=$API_KEY")
     suspend fun getForecast(@Path("latitude") latitude: Float, @Path("longitude") longitude: Float): Weather
 
-    @GET("geo/1.0/direct?q={city},{country}&limit=5&appid=$API_KEY")
-    suspend fun getCoordinatesFromCity(@Path("city") city: String, @Path("country") country: String): Position
+    @GET("geo/1.0/direct?q={city}&limit=5&appid=$API_KEY")
+    suspend fun getCoordinatesFromCity(@Path("city") city: String): Position
 }

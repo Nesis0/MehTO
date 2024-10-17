@@ -12,7 +12,7 @@ class WeatherServiceImpl: WeatherService {
         return WeatherCall.service.getForecast(latitude, longitude)
     }
 
-    override suspend fun getCoordinatesFromCity(city: String, country: String): Position {
-        return WeatherCall.service.getCoordinatesFromCity(city, country)
+    override suspend fun getCoordinatesFromCity(city: String): Position {
+        return WeatherCall.service.getCoordinatesFromCity(city)
     }
 }
