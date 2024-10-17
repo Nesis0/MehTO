@@ -34,7 +34,7 @@ class WeatherViewModel(
     }
 
     private suspend fun getEffectivePosition(): Position {
-        val configs = configRepository.getConfig("")
+        val configs = configRepository.read("")
 
         TODO("Get position depending on settings' favorite (default current pos)")
     }
