@@ -9,10 +9,9 @@ import com.isen.mehto.data.repositories.WeatherRepository
 import com.isen.mehto.weather.api.WeatherServiceImpl
 import java.time.OffsetDateTime
 
-class WeatherRepositoryImpl() : WeatherRepository {
-    override suspend fun getWeather(position: Position): Weather {
-        return getWeather(position, OffsetDateTime.now())
 class WeatherRepositoryImpl(private val weatherService: WeatherServiceImpl) : WeatherRepository {
+    override suspend fun getTodayWeather(position: Position): Weather {
+        return weatherService.getTodayWeather(position.latitude, position.longitude)
     }
 
     override suspend fun getWeather(position: Position, time: OffsetDateTime): Weather {
