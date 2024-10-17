@@ -15,10 +15,10 @@ interface ConfigDAO {
     suspend fun insert(config: Config)
 
     @Query("SELECT value FROM config WHERE name = :name")
-    suspend fun getConfig(name: String): String?
+    suspend fun read(name: String): String?
 
     @Update
-    suspend fun updateConfig(config: Config)
+    suspend fun update(config: Config)
 
     @Delete
     suspend fun delete(config: Config)

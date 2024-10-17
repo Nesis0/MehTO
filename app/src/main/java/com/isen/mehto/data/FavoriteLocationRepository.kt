@@ -5,13 +5,13 @@ import com.isen.mehto.data.entity.FavoriteLocation
 interface FavoriteLocationRepository {
     suspend fun getAllLocations(): List<FavoriteLocation>
 
-    suspend fun insertLocation(location: FavoriteLocation)
+    suspend fun insert(location: FavoriteLocation)
 
-    suspend fun getLocationInfo(displayName: String): FavoriteLocation?
+    suspend fun read(displayName: String): FavoriteLocation?
 
-    suspend fun updateLocation(location: FavoriteLocation)
+    suspend fun update(location: FavoriteLocation)
 
-    suspend fun deleteLocation(location: FavoriteLocation)
+    suspend fun delete(location: FavoriteLocation)
 
     suspend fun clearLocationList()
 }

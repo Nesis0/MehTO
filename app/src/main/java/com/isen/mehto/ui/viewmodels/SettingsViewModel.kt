@@ -8,23 +8,23 @@ import com.isen.mehto.data.entity.Config
 
 class SettingsViewModel(private val configRepository: OfflineConfigRepository) : ViewModel() {
     suspend fun saveSetting(config: Config){
-        configRepository.insertConfig(config)
+        configRepository.insert(config)
     }
 
     suspend fun getAllConfigs(){
         configRepository.getAllConfigs()
     }
 
-    suspend fun getConfig(key: String): Config?{
-        return configRepository.getConfig(key)
+    suspend fun getConfig(key: String): String?{
+        return configRepository.read(key)
     }
 
     suspend fun updateConfig(config: Config){
-        configRepository.updateConfig(config)
+        configRepository.update(config)
     }
 
     suspend fun deleteConfig(config: Config){
-        configRepository.deleteConfig(config)
+        configRepository.delete(config)
     }
 
     suspend fun clearConfig(){

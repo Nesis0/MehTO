@@ -8,19 +8,19 @@ class OfflineConfigRepository(private val configDAO: ConfigDAO) : ConfigReposito
         return configDAO.getAllConfigs()
     }
 
-    override suspend fun insertConfig(config: Config) {
+    override suspend fun insert(config: Config) {
         return configDAO.insert(config)
     }
 
-    override suspend fun getConfig(key: String): Config? {
-        return configDAO.getConfig(key)
+    override suspend fun read(key: String): String? {
+        return configDAO.read(key)
     }
 
-    override suspend fun updateConfig(config: Config) {
-        return configDAO.updateConfig(config)
+    override suspend fun update(config: Config) {
+        return configDAO.update(config)
     }
 
-    override suspend fun deleteConfig(config: Config) {
+    override suspend fun delete(config: Config) {
         return configDAO.delete(config)
     }
 

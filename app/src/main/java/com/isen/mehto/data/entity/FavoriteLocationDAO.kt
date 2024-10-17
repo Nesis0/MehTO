@@ -15,7 +15,7 @@ interface FavoriteLocationDAO {
     suspend fun insert(location: FavoriteLocation)
 
     @Query("SELECT * FROM favoritelocation WHERE display_name = :displayName")
-    suspend fun getLocationInfo(displayName: String): FavoriteLocation?
+    suspend fun read(displayName: String): FavoriteLocation?
 
     @Update
     suspend fun update(location: FavoriteLocation)

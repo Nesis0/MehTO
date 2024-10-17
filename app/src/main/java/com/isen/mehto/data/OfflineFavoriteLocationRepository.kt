@@ -8,19 +8,19 @@ class OfflineFavoriteLocationRepository(private val cityDAO: FavoriteLocationDAO
         return cityDAO.getAllLocations()
     }
 
-    override suspend fun insertLocation(location: FavoriteLocation) {
+    override suspend fun insert(location: FavoriteLocation) {
         return cityDAO.insert(location)
     }
 
-    override suspend fun getLocationInfo(displayName: String): FavoriteLocation? {
-        return cityDAO.getLocationInfo(displayName)
+    override suspend fun read(displayName: String): FavoriteLocation? {
+        return cityDAO.read(displayName)
     }
 
-    override suspend fun updateLocation(location: FavoriteLocation) {
+    override suspend fun update(location: FavoriteLocation) {
         return cityDAO.update(location)
     }
 
-    override suspend fun deleteLocation(location: FavoriteLocation) {
+    override suspend fun delete(location: FavoriteLocation) {
         return cityDAO.delete(location)
     }
 

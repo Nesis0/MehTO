@@ -12,19 +12,19 @@ class FavoriteLocationViewModel(private val favoriteLocationRepository: OfflineF
     }
 
     suspend fun insertLocation(location: FavoriteLocation) {
-        favoriteLocationRepository.insertLocation(location)
+        favoriteLocationRepository.insert(location)
     }
 
     suspend fun getLocationInfo(displayName: String): FavoriteLocation? {
-        return favoriteLocationRepository.getLocationInfo(displayName)
+        return favoriteLocationRepository.read(displayName)
     }
 
     suspend fun updateLocation(location: FavoriteLocation) {
-        favoriteLocationRepository.updateLocation(location)
+        favoriteLocationRepository.update(location)
     }
 
     suspend fun deleteLocation(location: FavoriteLocation) {
-        favoriteLocationRepository.deleteLocation(location)
+        favoriteLocationRepository.delete(location)
     }
 
     suspend fun clearLocationList() {
