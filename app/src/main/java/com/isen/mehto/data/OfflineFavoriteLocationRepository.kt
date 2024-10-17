@@ -4,11 +4,11 @@ import com.isen.mehto.data.entity.FavoriteLocation
 import com.isen.mehto.data.entity.FavoriteLocationDAO
 
 class OfflineFavoriteLocationRepository(private val cityDAO: FavoriteLocationDAO) : FavoriteLocationRepository {
-    override suspend fun getAllCities(): List<FavoriteLocation> {
-        return cityDAO.getAllCities()
+    override suspend fun getAllLocations(): List<FavoriteLocation> {
+        return cityDAO.getAllLocations()
     }
 
-    override suspend fun insertCity(location: FavoriteLocation) {
+    override suspend fun insertLocation(location: FavoriteLocation) {
         return cityDAO.insert(location)
     }
 
@@ -16,15 +16,15 @@ class OfflineFavoriteLocationRepository(private val cityDAO: FavoriteLocationDAO
         return cityDAO.getLocationInfo(displayName)
     }
 
-    override suspend fun updateCity(location: FavoriteLocation) {
+    override suspend fun updateLocation(location: FavoriteLocation) {
         return cityDAO.update(location)
     }
 
-    override suspend fun deleteCity(location: FavoriteLocation) {
+    override suspend fun deleteLocation(location: FavoriteLocation) {
         return cityDAO.delete(location)
     }
 
-    override suspend fun clearCityList() {
-        return cityDAO.clearCityList()
+    override suspend fun clearLocationList() {
+        return cityDAO.clearLocationList()
     }
 }

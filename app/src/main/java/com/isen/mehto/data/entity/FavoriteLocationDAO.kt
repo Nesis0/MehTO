@@ -9,7 +9,7 @@ import androidx.room.Update
 @Dao
 interface FavoriteLocationDAO {
     @Query("SELECT * FROM favoritelocation")
-    suspend fun getAllCities(): List<FavoriteLocation>
+    suspend fun getAllLocations(): List<FavoriteLocation>
 
     @Insert
     suspend fun insert(location: FavoriteLocation)
@@ -24,5 +24,5 @@ interface FavoriteLocationDAO {
     suspend fun delete(location: FavoriteLocation)
 
     @Query("DELETE FROM favoritelocation")
-    suspend fun clearCityList()
+    suspend fun clearLocationList()
 }

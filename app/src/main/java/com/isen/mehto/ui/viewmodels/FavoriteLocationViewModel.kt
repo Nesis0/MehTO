@@ -7,28 +7,28 @@ import com.isen.mehto.data.OfflineFavoriteLocationRepository
 import com.isen.mehto.data.entity.FavoriteLocation
 
 class FavoriteLocationViewModel(private val favoriteLocationRepository: OfflineFavoriteLocationRepository) : ViewModel() {
-    suspend fun getAllCities(): List<FavoriteLocation> {
-        return favoriteLocationRepository.getAllCities()
+    suspend fun getAllLocations(): List<FavoriteLocation> {
+        return favoriteLocationRepository.getAllLocations()
     }
 
     suspend fun insertLocation(location: FavoriteLocation) {
-        favoriteLocationRepository.insertCity(location)
+        favoriteLocationRepository.insertLocation(location)
     }
 
     suspend fun getLocationInfo(displayName: String): FavoriteLocation? {
         return favoriteLocationRepository.getLocationInfo(displayName)
     }
 
-    suspend fun updateCity(location: FavoriteLocation) {
-        favoriteLocationRepository.updateCity(location)
+    suspend fun updateLocation(location: FavoriteLocation) {
+        favoriteLocationRepository.updateLocation(location)
     }
 
-    suspend fun deleteCity(location: FavoriteLocation) {
-        favoriteLocationRepository.deleteCity(location)
+    suspend fun deleteLocation(location: FavoriteLocation) {
+        favoriteLocationRepository.deleteLocation(location)
     }
 
-    suspend fun clearCityList() {
-        favoriteLocationRepository.clearCityList()
+    suspend fun clearLocationList() {
+        favoriteLocationRepository.clearLocationList()
     }
 
     class ViewModelFactory(
