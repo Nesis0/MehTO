@@ -8,7 +8,7 @@ import androidx.room.Update
 
 @Dao
 interface FavoriteLocationDAO {
-    @Query("SELECT * FROM favoritelocation")
+    @Query("SELECT * FROM favoritelocation ORDER BY position_index")
     suspend fun getAllLocations(): List<FavoriteLocation>
 
     @Insert
