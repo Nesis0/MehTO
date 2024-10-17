@@ -6,7 +6,7 @@ import com.isen.mehto.data.ConfigRepository
 import com.isen.mehto.data.OfflineConfigRepository
 import com.isen.mehto.data.entity.Config
 
-class SettingsViewModel(private val configRepository: ConfigRepository) : ViewModel() {
+class SettingsViewModel(private val configRepository: OfflineConfigRepository) : ViewModel() {
     suspend fun saveSetting(config: Config){
         configRepository.insertConfig(config)
     }
