@@ -25,18 +25,19 @@ class WeatherViewModel(
         viewModelScope.launch {
             val position = getEffectivePosition()
 
-            _currentWeather.value = weatherRepository.getWeather(position)
-
-            val start = OffsetDateTime.now().plusDays(1)
-            val end = start.plusDays(6)
-            _weatherWeek.value = weatherRepository.getWeather(position, start, end)
+            _currentWeather.value = weatherRepository.getTodayWeather(position)
+//
+//            val start = OffsetDateTime.now().plusDays(1)
+//            val end = start.plusDays(6)
+//            _weatherWeek.value = weatherRepository.getWeather(position, start, end)
         }
     }
 
     private suspend fun getEffectivePosition(): Position {
         val configs = configRepository.read("")
 
-        TODO("Get position depending on settings' favorite (default current pos)")
+        //TODO("Get position depending on settings' favorite (default current pos)")
+        return Position(0f,0f)
     }
 
     class ViewModelFactory(
