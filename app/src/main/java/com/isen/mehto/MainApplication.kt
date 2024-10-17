@@ -28,7 +28,7 @@ class MainApplication : Application() {
 }
 
 val repositoryModule = module {
-    single<WeatherRepository> { WeatherRepositoryImpl() }
+    single<WeatherRepository> { WeatherRepositoryImpl(get()) }
     single<OfflineConfigRepository> { OfflineConfigRepository(get()) }
     single<OfflineFavoriteLocationRepository> { OfflineFavoriteLocationRepository(get()) }
 }
