@@ -8,6 +8,10 @@ class WeatherServiceImpl: WeatherService {
         return WeatherCall.service.getTodayWeather(latitude, longitude)
     }
 
+    override suspend fun getForecast(latitude: Float, longitude: Float): Weather {
+        return WeatherCall.service.getForecast(latitude, longitude)
+    }
+
     override suspend fun getCoordinatesFromCity(city: String, country: String): Position {
         return WeatherCall.service.getCoordinatesFromCity(city, country)
     }

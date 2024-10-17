@@ -6,6 +6,6 @@ import java.time.OffsetDateTime
 
 interface WeatherRepository {
     suspend fun getTodayWeather(position: Position): Weather
-    suspend fun getWeather(position: Position, time: OffsetDateTime): Weather
+    suspend fun getForecast(position: Position): Weather
     suspend fun getWeather(position: Position, start: OffsetDateTime, end: OffsetDateTime): List<Weather>
 }
