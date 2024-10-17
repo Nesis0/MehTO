@@ -3,6 +3,7 @@ package com.isen.mehto
 import android.app.Application
 import androidx.room.Room
 import com.isen.mehto.data.OfflineConfigRepository
+import com.isen.mehto.data.OfflineFavoriteLocationRepository
 import com.isen.mehto.data.db.LocalDatabase
 import com.isen.mehto.data.repositories.WeatherRepository
 import com.isen.mehto.data.repositories.impl.WeatherRepositoryImpl
@@ -28,6 +29,7 @@ class MainApplication : Application() {
 val repositoryModule = module {
     single<WeatherRepository> { WeatherRepositoryImpl() }
     single<OfflineConfigRepository> { OfflineConfigRepository(get()) }
+    single<OfflineFavoriteLocationRepository> { OfflineFavoriteLocationRepository(get()) }
 }
 
 val dataSourcesModule = module { }
