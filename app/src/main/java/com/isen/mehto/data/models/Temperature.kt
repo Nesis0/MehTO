@@ -30,4 +30,8 @@ class Temperature(private val value: Double, private val unit: TemperatureUnit){
             else -> this.value
         }
     }
+
+    override fun toString(): String {
+        return "${this.value}"
+    }
 }
