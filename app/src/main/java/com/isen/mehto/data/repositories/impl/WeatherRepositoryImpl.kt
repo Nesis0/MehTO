@@ -7,11 +7,11 @@ import com.isen.mehto.weather.api.WeatherServiceImpl
 
 class WeatherRepositoryImpl(private val weatherService: WeatherServiceImpl) : WeatherRepository {
     override suspend fun getTodayWeather(position: Position): Weather {
-        return weatherService.getTodayWeather(position.latitude, position.longitude)
+        return weatherService.getTodayWeather(position.lat, position.lon)
     }
 
     override suspend fun getForecast(position: Position): Weather {
-        return weatherService.getForecast(position.latitude, position.longitude)
+        return weatherService.getForecast(position.lat, position.lon)
     }
 
     override suspend fun getCoordinatesFromCity(city: String): Position {
