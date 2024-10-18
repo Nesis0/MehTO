@@ -57,7 +57,7 @@ private fun CurrentWeather(viewModel: WeatherViewModel) {
                 painter = painterResource(id = it.weatherType.image),
                 contentDescription = "Weather Icon",
             )
-            Text(fontSize = 32.sp, text = "${it.temperature.toCelsius()} °C")
+            Text(fontSize = 32.sp, text = "${String.format("%.2f", it.temperature.toCelsius())} °C")
             Text(fontSize = 24.sp, text = it.city)
         }
     }
