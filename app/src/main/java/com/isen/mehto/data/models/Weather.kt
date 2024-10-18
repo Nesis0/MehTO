@@ -18,7 +18,7 @@ data class Weather(
     val city: String,
     val temperature: Temperature,
     val weatherType: WeatherType,
-    val rainRisk: Percentage
+    val rainRisk: Int
 )
 
 data class WeatherResponse(
