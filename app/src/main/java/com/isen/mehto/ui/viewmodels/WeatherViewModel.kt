@@ -10,7 +10,6 @@ import com.isen.mehto.data.models.Position
 import com.isen.mehto.data.models.Weather
 import com.isen.mehto.data.repositories.WeatherRepository
 import kotlinx.coroutines.launch
-import java.time.OffsetDateTime
 
 class WeatherViewModel(
     private val weatherRepository: WeatherRepository,
