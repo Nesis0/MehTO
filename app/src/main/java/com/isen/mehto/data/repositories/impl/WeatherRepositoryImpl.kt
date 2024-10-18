@@ -21,4 +21,17 @@ class WeatherRepositoryImpl(private val weatherService: WeatherServiceImpl) : We
     private fun mapWeatherFromWeatherResponse(weatherResponse: WeatherResponse): Weather{
         return Weather(weatherResponse.name, Temperature.fromCelsius(weatherResponse.main.temp), getWeatherTypeFromResponseWeatherType(weatherResponse.weather[0].main) ,weatherResponse.main.humidity)
     }
+
+    private fun getWeatherTypeFromResponseWeatherType(weatherType: String): WeatherType {
+        return when (weatherType){
+            "Clear" -> WeatherType.SUNNY
+            "Clouds" -> WeatherType.CLOUDY
+            "Rain" -> WeatherType.RAINY
+            "Snow" -> WeatherType.SNOWY
+            "ThunderStorm" -> WeatherType.STORMY
+            "Drizzle" -> WeatherType.DRIZZLY
+
+            else -> WeatherType.UNKNOWN
+        }
+    }
 }
