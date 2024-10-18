@@ -25,6 +25,16 @@ class WeatherRepositoryImpl(private val weatherService: WeatherServiceImpl) : We
         return weatherService.getCoordinatesFromCity(city)
     }
 
+    private fun mapWeatherListFromForecastResponse(forecastResponse: ForecastResponse): MutableList<Weather> {
+        val weatherList: MutableList<Weather> = mutableListOf()
+        println(forecastResponse)
+        for (weatherInfos in forecastResponse.list){
+            weatherInfos.name = forecastResponse.city.name
+            weatherList.add(mapWeatherFromWeatherResponse(weatherInfos))
+        }
+        return weatherList
+    }
+
     private fun mapWeatherFromWeatherResponse(weatherResponse: WeatherResponse): Weather{
         return Weather(weatherResponse.name, Temperature(weatherResponse.main.temp, TemperatureUnit.KELVIN), getWeatherTypeFromResponseWeatherType(weatherResponse.weather[0].main) ,weatherResponse.main.humidity)
     }
