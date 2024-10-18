@@ -14,7 +14,7 @@ class WeatherRepositoryImpl(private val weatherService: WeatherServiceImpl) : We
         return weatherService.getForecast(position.lat, position.lon)
     }
 
-    override suspend fun getCoordinatesFromCity(city: String): Position {
+    override suspend fun getCoordinatesFromCity(city: String): List<Position> {
         return weatherService.getCoordinatesFromCity(city)
     }
 }
