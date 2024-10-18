@@ -17,4 +17,8 @@ class WeatherRepositoryImpl(private val weatherService: WeatherServiceImpl) : We
     override suspend fun getCoordinatesFromCity(city: String): List<Position> {
         return weatherService.getCoordinatesFromCity(city)
     }
+
+    private fun mapWeatherFromWeatherResponse(weatherResponse: WeatherResponse): Weather{
+        return Weather(weatherResponse.name, Temperature.fromCelsius(weatherResponse.main.temp), getWeatherTypeFromResponseWeatherType(weatherResponse.weather[0].main) ,weatherResponse.main.humidity)
+    }
 }
