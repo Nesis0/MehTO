@@ -1,5 +1,6 @@
 package com.isen.mehto.ui.views
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -40,6 +41,7 @@ fun WeatherScreen() {
     }
 }
 
+@SuppressLint("DefaultLocale")
 @Composable
 private fun CurrentWeather(viewModel: WeatherViewModel) {
     if (viewModel.currentWeather.value == null) {
@@ -55,7 +57,7 @@ private fun CurrentWeather(viewModel: WeatherViewModel) {
                 painter = painterResource(id = it.weatherType.image),
                 contentDescription = "Weather Icon",
             )
-            Text(fontSize = 32.sp, text = "${it.temperature.inCelsius} °C")
+            Text(fontSize = 32.sp, text = "${it.temperature.toCelsius()} °C")
             Text(fontSize = 24.sp, text = it.city)
         }
     }
@@ -83,7 +85,7 @@ private fun WeatherWeek(viewModel: WeatherViewModel) {
                             contentDescription = "Weather Icon",
                         )
                         Spacer(modifier = Modifier.width(20.dp))
-                        Text(fontSize = 26.sp, text = "${it.temperature.inCelsius} °C")
+                        Text(fontSize = 26.sp, text = "${it.temperature.toCelsius()} °C")
                     }
 
                     Row(verticalAlignment = Alignment.CenterVertically) {

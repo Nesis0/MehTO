@@ -1,7 +1,8 @@
 package com.isen.mehto.data.repositories.impl
 
-import android.health.connect.datatypes.units.Temperature
 import com.isen.mehto.data.models.Position
+import com.isen.mehto.data.models.Temperature
+import com.isen.mehto.data.models.TemperatureUnit
 import com.isen.mehto.data.models.Weather
 import com.isen.mehto.data.models.WeatherResponse
 import com.isen.mehto.data.models.WeatherType
@@ -25,7 +26,7 @@ class WeatherRepositoryImpl(private val weatherService: WeatherServiceImpl) : We
     }
 
     private fun mapWeatherFromWeatherResponse(weatherResponse: WeatherResponse): Weather{
-        return Weather(weatherResponse.name, Temperature.fromCelsius(weatherResponse.main.temp), getWeatherTypeFromResponseWeatherType(weatherResponse.weather[0].main) ,weatherResponse.main.humidity)
+        return Weather(weatherResponse.name, Temperature(weatherResponse.main.temp, TemperatureUnit.KELVIN), getWeatherTypeFromResponseWeatherType(weatherResponse.weather[0].main) ,weatherResponse.main.humidity)
     }
 
     private fun getWeatherTypeFromResponseWeatherType(weatherType: String): WeatherType {

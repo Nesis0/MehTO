@@ -1,7 +1,6 @@
 package com.isen.mehto.data.models
 
-import android.health.connect.datatypes.units.Percentage
-import android.health.connect.datatypes.units.Temperature
+
 import com.isen.mehto.R
 
 enum class WeatherType(val image: Int) {
