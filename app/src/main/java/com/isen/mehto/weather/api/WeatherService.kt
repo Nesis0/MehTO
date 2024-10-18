@@ -1,7 +1,7 @@
 package com.isen.mehto.weather.api
 
+import com.isen.mehto.data.models.ForecastResponse
 import com.isen.mehto.data.models.Position
-import com.isen.mehto.data.models.Weather
 import com.isen.mehto.data.models.WeatherResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -13,7 +13,7 @@ interface WeatherService {
     suspend fun getTodayWeather(@Query("lat") latitude: Float, @Query("lon") longitude: Float, @Query("appid") apiKey: String? = API_KEY): WeatherResponse
 
     @GET("/data/2.5/forecast")
-    suspend fun getForecast(@Query("lat") latitude: Float, @Query("lon") longitude: Float, @Query("appid") apiKey: String? = API_KEY): Weather
+    suspend fun getForecast(@Query("lat") latitude: Float, @Query("lon") longitude: Float, @Query("appid") apiKey: String? = API_KEY): ForecastResponse
 
     @GET("geo/1.0/direct")
     suspend fun getCoordinatesFromCity(@Query("q") city: String, @Query("limit") limit: Int? = 5, @Query("appid") apiKey: String? = API_KEY): List<Position>

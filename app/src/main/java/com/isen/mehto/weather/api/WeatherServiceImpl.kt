@@ -1,7 +1,7 @@
 package com.isen.mehto.weather.api
 
+import com.isen.mehto.data.models.ForecastResponse
 import com.isen.mehto.data.models.Position
-import com.isen.mehto.data.models.Weather
 import com.isen.mehto.data.models.WeatherResponse
 
 class WeatherServiceImpl: WeatherService {
@@ -9,7 +9,7 @@ class WeatherServiceImpl: WeatherService {
         return WeatherCall.service.getTodayWeather(latitude, longitude)
     }
 
-    override suspend fun getForecast(latitude: Float, longitude: Float, apiKey: String?): Weather {
+    override suspend fun getForecast(latitude: Float, longitude: Float, apiKey: String?): ForecastResponse {
         return WeatherCall.service.getForecast(latitude, longitude)
     }
 

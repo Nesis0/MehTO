@@ -1,5 +1,6 @@
 package com.isen.mehto.data.repositories.impl
 
+import com.isen.mehto.data.models.ForecastResponse
 import com.isen.mehto.data.models.Position
 import com.isen.mehto.data.models.Temperature
 import com.isen.mehto.data.models.TemperatureUnit
