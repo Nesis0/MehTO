@@ -5,8 +5,6 @@ import com.isen.mehto.data.models.Weather
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-data class CityInfo(val weather: String, val temp: String)
-
 const val API_KEY: String = "63b335fbcbab900e14a56296d96716b4"
 
 interface WeatherService {
