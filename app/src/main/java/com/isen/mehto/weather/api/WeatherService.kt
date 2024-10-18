@@ -15,5 +15,5 @@ interface WeatherService {
     suspend fun getForecast(@Query("lat") latitude: Float, @Query("lon") longitude: Float, @Query("appid") apiKey: String? = API_KEY): Weather
 
     @GET("geo/1.0/direct")
-    suspend fun getCoordinatesFromCity(@Query("q") city: String, @Query("appid") apiKey: String? = API_KEY): Position
+    suspend fun getCoordinatesFromCity(@Query("q") city: String, @Query("limit") limit: Int? = 5, @Query("appid") apiKey: String? = API_KEY): Position
 }
