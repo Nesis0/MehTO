@@ -3,8 +3,7 @@ package com.isen.mehto.data.models
 enum class TemperatureUnit {
     KELVIN,
     CELSIUS,
-    FAHRENHEIT,
-
+    FAHRENHEIT
 }
 
 class Temperature(private val value: Double, private val unit: TemperatureUnit){
@@ -31,6 +30,4 @@ class Temperature(private val value: Double, private val unit: TemperatureUnit){
             else -> this.value
         }
     }
-
-
 }

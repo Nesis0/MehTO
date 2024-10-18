@@ -13,7 +13,6 @@ class WeatherRepositoryImpl(private val weatherService: WeatherServiceImpl) : We
     override suspend fun getTodayWeather(position: Position): Weather {
         val weatherResponse: WeatherResponse = weatherService.getTodayWeather(position.lat, position.lon)
         val weather: Weather = mapWeatherFromWeatherResponse(weatherResponse)
-
         return weather
     }
 
