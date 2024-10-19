@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.isen.mehto.data.entity.FavoriteLocation
 import com.isen.mehto.data.repositories.db.impl.OfflineConfigRepository
 import com.isen.mehto.data.models.Position
 import com.isen.mehto.data.models.Forecast
@@ -34,9 +35,10 @@ class ForecastViewModel(
     private suspend fun getEffectivePosition(): Position {
         val settings = configRepository.read("")
 
-        val isFavoritePreferred: Boolean = configRepository.read("geolocation").toBoolean() //true //TODO("Retrieve value from settings")
+        val isFavoritePreferred: Boolean = configRepository.read("geolocation").toBoolean()
+        val isFavoriteEmpty = favoriteLocationRepository.getAllLocations().isEmpty()
 
-        return if (isFavoritePreferred)
+        return if (isFavoritePreferred && !isFavoriteEmpty)
             getPreferredLocationPosition()
         else
             forecastRepository.getPositionsFromCityName("Belfort")[0] //TODO("retrieve position from geo localisation")
