@@ -6,5 +6,5 @@ import com.isen.mehto.data.models.Forecast
 interface ForecastRepository {
     suspend fun getTodayWeather(position: Position): Forecast
     suspend fun getForecast(position: Position): List<Forecast>
-    suspend fun getCoordinatesFromCity(city: String): List<Position>
+    suspend fun getPositionsFromCityName(city: String): List<Position>
 }

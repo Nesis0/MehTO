@@ -36,12 +36,11 @@ class ForecastViewModel(
 
         val isFavoritePreferred = true //TODO("Retrieve value from settings")
 
-        if (!isFavoritePreferred)
-         return forecastRepository.getCoordinatesFromCity("Belfort")[0] //TODO("retrieve position from geo localisation")
-        else {
-            val primaryLocation = favoriteLocationRepository.getAllLocations()[0]
-            return Position(primaryLocation.longitude, primaryLocation.latitude)
-        }
+        return if (isFavoritePreferred)
+            getPreferredLocationPosition()
+        else
+            forecastRepository.getPositionsFromCityName("Belfort")[0] //TODO("retrieve position from geo localisation")
+
     }
 
     class ViewModelFactory(
