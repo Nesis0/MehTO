@@ -37,7 +37,7 @@ val repositoryModule = module {
 val dataSourcesModule = module { }
 
 val databaseModule = module {
-    single { Room.databaseBuilder(get(), LocalDatabase::class.java, "LocalDatabase").build() }
+    single { Room.databaseBuilder(get(), LocalDatabase::class.java, "MehTODatabase").build() }
     single { get<LocalDatabase>().configDAO() }
     single { get<LocalDatabase>().FavoriteLocationDAO() }
 }
