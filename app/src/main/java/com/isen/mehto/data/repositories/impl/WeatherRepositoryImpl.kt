@@ -29,7 +29,6 @@ class WeatherRepositoryImpl(private val weatherService: WeatherServiceImpl) : We
 
     private fun mapWeatherListFromForecastResponse(forecastResponse: ForecastResponse): MutableList<Weather> {
         val weatherList: MutableList<Weather> = mutableListOf()
-        println(forecastResponse)
         for (weatherInfos in forecastResponse.list){
             weatherInfos.name = forecastResponse.city.name
             weatherList.add(mapWeatherFromWeatherResponse(weatherInfos))
