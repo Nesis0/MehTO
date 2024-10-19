@@ -1,7 +1,6 @@
 package com.isen.mehto
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -40,7 +39,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.isen.mehto.ui.views.ForecastScreen
 import com.isen.mehto.ui.views.SettingsScreen
-import com.isen.mehto.ui.theme.Blue60
 import com.isen.mehto.ui.theme.DashedDivider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -60,11 +58,7 @@ private fun DrawerContent(
 ) {
     val coroutineScope = rememberCoroutineScope()
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.Gray),
-    ) {
+    Column {
         IconButton(onClick = { coroutineScope.launch { drawerState.close() } }) {
             Icon(Icons.Filled.Close, contentDescription = "Menu")
         }
@@ -111,7 +105,7 @@ fun CustomAppBar(drawerState: DrawerState) {
         },
         title = { },
         colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = Blue60,
+            containerColor = Color.Transparent,
             navigationIconContentColor = Color.White
         ),
         actions = {
@@ -146,8 +140,7 @@ fun Navigation(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(paddingValues)
-                    .background(Blue60),
+                    .padding(paddingValues),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
