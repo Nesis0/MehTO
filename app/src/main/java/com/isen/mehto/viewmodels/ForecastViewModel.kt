@@ -1,19 +1,25 @@
 package com.isen.mehto.viewmodels
 
+import android.location.Location
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.isen.mehto.data.entity.FavoriteLocation
 import com.isen.mehto.data.repositories.db.impl.OfflineConfigRepository
 import com.isen.mehto.data.models.Position
 import com.isen.mehto.data.models.Forecast
 import com.isen.mehto.data.repositories.api.ForecastRepository
+import com.isen.mehto.data.repositories.db.impl.OfflineFavoriteLocationRepository
+import com.isen.mehto.data.repositories.geolocation.impl.GeolocationRepositoryImpl
 import kotlinx.coroutines.launch
 
 class ForecastViewModel(
     private val forecastRepository: ForecastRepository,
-    private val configRepository: OfflineConfigRepository
+    private val configRepository: OfflineConfigRepository,
+    private val favoriteLocationRepository: OfflineFavoriteLocationRepository,
+    private val geolocationRepository: GeolocationRepositoryImpl
 ) : ViewModel() {
     private val _currentForecast: MutableState<Forecast?> = mutableStateOf(null)
     val currentWeather = _currentForecast
@@ -22,24 +28,47 @@ class ForecastViewModel(
 
     init {
         viewModelScope.launch {
-            val positions: List<Position> = getEffectivePosition()
-            //TODO("Get the user's choice between possibility")
-            _currentForecast.value = forecastRepository.getTodayWeather(positions[0])
-
-            _forecastWeek.value = forecastRepository.getForecast(positions[0])
+            configRepository.initConfig()
+            val position: Position = getEffectivePosition()
+            _currentForecast.value = forecastRepository.getTodayWeather(position)
+            _forecastWeek.value = forecastRepository.getForecast(position)
         }
     }
 
-    private suspend fun getEffectivePosition(): List<Position> {
-        val configs = configRepository.read("")
+    private suspend fun getEffectivePosition(): Position {
+        val isFavoritePreferred: Boolean = configRepository.read("geolocation").toBoolean()
+        val isFavoriteEmpty = favoriteLocationRepository.getAllLocations().isEmpty()
 
-        //TODO("Get position depending on settings' favorite (default current pos)")
-        return forecastRepository.getCoordinatesFromCity("Belfort") // ❤️❤️❤️
+        if (isFavoritePreferred && !isFavoriteEmpty)
+            return getPreferredLocationPosition()
+
+        if (!isFavoritePreferred && geolocationRepository.isGeolocationPermitted())
+            return getGeolocationPosition()
+
+        return Position(0f, 0f)
+    }
+
+    private suspend fun getGeolocationPosition(): Position {
+        val geolocationPos = Position(0f, 0f)
+        geolocationRepository.getLastLocation { location: Location? ->
+            if (location != null) {
+                geolocationPos.lat = location.latitude.toFloat()
+                geolocationPos.lon = location.longitude.toFloat()
+            }
+        }
+        return geolocationPos
+    }
+
+    private suspend fun getPreferredLocationPosition(): Position {
+        val preferredLocation: FavoriteLocation = favoriteLocationRepository.readByIndex("1")
+        return Position(preferredLocation.latitude, preferredLocation.longitude)
     }
 
     class ViewModelFactory(
         private val forecastRepository: ForecastRepository,
         private val configRepository: OfflineConfigRepository,
+        private val favoriteLocationRepository: OfflineFavoriteLocationRepository,
+        private val geolocationRepository: GeolocationRepositoryImpl
     ) : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -47,6 +76,8 @@ class ForecastViewModel(
                 return ForecastViewModel(
                     forecastRepository = forecastRepository,
                     configRepository = configRepository,
+                    favoriteLocationRepository = favoriteLocationRepository,
+                    geolocationRepository = geolocationRepository
                 ) as T
             }
             throw IllegalArgumentException("Unknown ViewModel class")

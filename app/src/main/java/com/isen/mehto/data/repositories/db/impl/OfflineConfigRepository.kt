@@ -13,6 +13,10 @@ class OfflineConfigRepository(private val configDAO: ConfigDAO) : ConfigReposito
         return configDAO.insert(config)
     }
 
+    override suspend fun initInsert(config: Config){
+        return configDAO.initInsert(config.name, config.value)
+    }
+
     override suspend fun read(key: String): String? {
         return configDAO.read(key)
     }
@@ -27,5 +31,11 @@ class OfflineConfigRepository(private val configDAO: ConfigDAO) : ConfigReposito
 
     override suspend fun clearConfig() {
         return configDAO.clearConfig()
+    }
+
+    suspend fun initConfig(){
+        configDAO.initInsert("unit", "celsius")
+        configDAO.initInsert("language", "fr")
+        configDAO.initInsert("geolocation", "true")
     }
 }

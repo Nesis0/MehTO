@@ -7,6 +7,8 @@ interface ConfigRepository {
 
     suspend fun insert(config: Config)
 
+    suspend fun initInsert(config: Config)
+
     suspend fun read(key: String): String?
 
     suspend fun update(config: Config)

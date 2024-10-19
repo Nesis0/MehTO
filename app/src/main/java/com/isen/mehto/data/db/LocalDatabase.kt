@@ -25,7 +25,7 @@ abstract class LocalDatabase : RoomDatabase() {
 
           fun getDatabase(context: Context): LocalDatabase {
                return Instance ?: synchronized(this) {
-                    Room.databaseBuilder(context, LocalDatabase::class.java,"LocalDatabase")
+                    Room.databaseBuilder(context, LocalDatabase::class.java,"MehTODatabase")
                          .addCallback(object : RoomDatabase.Callback() {
                               override fun onCreate(db: SupportSQLiteDatabase) {
                                    super.onCreate(db)
