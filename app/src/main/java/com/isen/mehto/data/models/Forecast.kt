@@ -1,6 +1,7 @@
 package com.isen.mehto.data.models
 
 
+import android.health.connect.datatypes.units.Percentage
 import com.isen.mehto.R
 
 enum class WeatherConditions(val image: Int) {
@@ -17,6 +18,6 @@ data class Forecast(
     val city: String,
     val temperature: Temperature,
     val weatherConditions: WeatherConditions,
-    val rainRisk: Int
+    val humidity: Percentage
 )
 

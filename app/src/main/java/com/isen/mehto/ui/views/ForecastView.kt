@@ -90,10 +90,10 @@ private fun ForecastWeek(viewModel: ForecastViewModel) {
                     }
 
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        Text(fontSize = 26.sp, text = "${it.rainRisk}")
+                        Text(fontSize = 26.sp, text = "${it.humidity}")
                         Image(
                             modifier = Modifier.fillMaxHeight(0.8f),
-                            painter = painterResource(id = R.drawable.ic_rainrisk),
+                            painter = painterResource(id = R.drawable.ic_humidity),
                             contentDescription = "Rain Risk Icon",
                         )
                     }
