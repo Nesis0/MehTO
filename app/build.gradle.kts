@@ -68,6 +68,10 @@ dependencies {
     implementation(libs.koin.android)
     implementation(libs.koin.androidx.compose)
     implementation(libs.play.services.location)
+    implementation(libs.androidx.room.ktx)
+    implementation (libs.maps.compose)
+    implementation (libs.play.services.maps)
+    implementation (libs.play.services.location.v2101)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -76,5 +80,4 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     ksp(libs.room.compiler)
-    implementation(libs.androidx.room.ktx)
 }
