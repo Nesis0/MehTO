@@ -1,12 +1,28 @@
 package com.isen.mehto.viewmodels
 
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.isen.mehto.data.repositories.db.impl.OfflineConfigRepository
+import androidx.lifecycle.viewModelScope
 import com.isen.mehto.data.repositories.db.impl.OfflineFavoriteLocationRepository
 import com.isen.mehto.data.entity.FavoriteLocation
+import com.isen.mehto.data.models.Position
+import kotlinx.coroutines.launch
 
-class FavoriteLocationViewModel(private val favoriteLocationRepository: OfflineFavoriteLocationRepository) : ViewModel() {
+class FavoriteLocationViewModel(
+    private val favoriteLocationRepository: OfflineFavoriteLocationRepository,
+) : ViewModel() {
+    private val _userInput = mutableStateOf(String())
+    val userInput = _userInput
+    private val _position = mutableStateOf(Position(0.0f,0.0f))
+    var position = _position
+
+    init {
+        viewModelScope.launch {
+
+        }
+    }
+
     suspend fun getAllLocations(): List<FavoriteLocation> {
         return favoriteLocationRepository.getAllLocations()
     }
