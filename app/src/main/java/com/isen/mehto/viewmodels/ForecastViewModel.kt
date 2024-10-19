@@ -24,6 +24,7 @@ class ForecastViewModel(
 
     init {
         viewModelScope.launch {
+            configRepository.initConfig()
             val position: Position = getEffectivePosition()
             _currentForecast.value = forecastRepository.getTodayWeather(position)
             _forecastWeek.value = forecastRepository.getForecast(position)
