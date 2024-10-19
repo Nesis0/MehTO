@@ -1,6 +1,6 @@
 package com.isen.mehto.data.models
 
-data class WeatherResponse(
+data class SingleDayForecastResponse(
     val weather: List<WeatherCondition>,
     val main: Infos,
     var name: String,

@@ -5,15 +5,15 @@ import com.isen.mehto.data.models.Position
 import com.isen.mehto.data.models.Temperature
 import com.isen.mehto.data.models.TemperatureUnit
 import com.isen.mehto.data.models.Weather
-import com.isen.mehto.data.models.WeatherResponse
+import com.isen.mehto.data.models.SingleDayForecastResponse
 import com.isen.mehto.data.models.WeatherType
 import com.isen.mehto.data.repositories.ForecastRepository
 import com.isen.mehto.weather.api.WeatherServiceImpl
 
 class ForecastRepositoryImpl(private val weatherService: WeatherServiceImpl) : ForecastRepository {
     override suspend fun getTodayWeather(position: Position): Weather {
-        val weatherResponse: WeatherResponse = weatherService.getTodayWeather(position.lat, position.lon)
-        val weather: Weather = mapWeatherFromWeatherResponse(weatherResponse)
+        val singleDayForecastResponse: SingleDayForecastResponse = weatherService.getTodayWeather(position.lat, position.lon)
+        val weather: Weather = mapWeatherFromWeatherResponse(singleDayForecastResponse)
         return weather
     }
 
@@ -41,8 +41,8 @@ class ForecastRepositoryImpl(private val weatherService: WeatherServiceImpl) : F
         return dt.contains("12:00:00")
     }
 
-    private fun mapWeatherFromWeatherResponse(weatherResponse: WeatherResponse): Weather{
-        return Weather(weatherResponse.name, Temperature(weatherResponse.main.temp, TemperatureUnit.KELVIN), getWeatherTypeFromResponseWeatherType(weatherResponse.weather[0].main) ,weatherResponse.main.humidity)
+    private fun mapWeatherFromWeatherResponse(singleDayForecastResponse: SingleDayForecastResponse): Weather{
+        return Weather(singleDayForecastResponse.name, Temperature(singleDayForecastResponse.main.temp, TemperatureUnit.KELVIN), getWeatherTypeFromResponseWeatherType(singleDayForecastResponse.weather[0].main) ,singleDayForecastResponse.main.humidity)
     }
 
     private fun getWeatherTypeFromResponseWeatherType(weatherType: String): WeatherType {
