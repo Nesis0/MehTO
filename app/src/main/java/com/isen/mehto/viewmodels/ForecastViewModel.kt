@@ -1,14 +1,14 @@
-package com.isen.mehto.ui.viewmodels
+package com.isen.mehto.viewmodels
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.isen.mehto.data.OfflineConfigRepository
+import com.isen.mehto.data.repositories.db.impl.OfflineConfigRepository
 import com.isen.mehto.data.models.Position
 import com.isen.mehto.data.models.Forecast
-import com.isen.mehto.data.repositories.ForecastRepository
+import com.isen.mehto.data.repositories.api.ForecastRepository
 import kotlinx.coroutines.launch
 
 class ForecastViewModel(

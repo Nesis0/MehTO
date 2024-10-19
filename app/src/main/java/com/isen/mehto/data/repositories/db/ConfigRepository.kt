@@ -1,4 +1,4 @@
-package com.isen.mehto.data
+package com.isen.mehto.data.repositories.db
 
 import com.isen.mehto.data.entity.Config
 

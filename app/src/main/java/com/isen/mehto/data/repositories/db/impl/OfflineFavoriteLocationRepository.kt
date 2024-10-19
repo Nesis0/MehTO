@@ -1,9 +1,11 @@
-package com.isen.mehto.data
+package com.isen.mehto.data.repositories.db.impl
 
 import com.isen.mehto.data.entity.FavoriteLocation
 import com.isen.mehto.data.entity.FavoriteLocationDAO
+import com.isen.mehto.data.repositories.db.FavoriteLocationRepository
 
-class OfflineFavoriteLocationRepository(private val cityDAO: FavoriteLocationDAO) : FavoriteLocationRepository {
+class OfflineFavoriteLocationRepository(private val cityDAO: FavoriteLocationDAO) :
+    FavoriteLocationRepository {
     override suspend fun getAllLocations(): List<FavoriteLocation> {
         return cityDAO.getAllLocations()
     }

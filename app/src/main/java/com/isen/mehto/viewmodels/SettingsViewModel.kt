@@ -1,9 +1,8 @@
-package com.isen.mehto.ui.viewmodels
+package com.isen.mehto.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.isen.mehto.data.ConfigRepository
-import com.isen.mehto.data.OfflineConfigRepository
+import com.isen.mehto.data.repositories.db.impl.OfflineConfigRepository
 import com.isen.mehto.data.entity.Config
 
 class SettingsViewModel(private val configRepository: OfflineConfigRepository) : ViewModel() {

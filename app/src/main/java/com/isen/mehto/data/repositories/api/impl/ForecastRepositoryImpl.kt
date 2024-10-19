@@ -1,4 +1,4 @@
-package com.isen.mehto.data.repositories.impl
+package com.isen.mehto.data.repositories.api.impl
 
 import com.isen.mehto.data.models.FiveDaysForecastResponse
 import com.isen.mehto.data.models.Position
@@ -7,8 +7,8 @@ import com.isen.mehto.data.models.TemperatureUnit
 import com.isen.mehto.data.models.Forecast
 import com.isen.mehto.data.models.SingleDayForecastResponse
 import com.isen.mehto.data.models.WeatherConditions
-import com.isen.mehto.data.repositories.ForecastRepository
-import com.isen.mehto.weather.api.WeatherServiceImpl
+import com.isen.mehto.data.repositories.api.ForecastRepository
+import com.isen.mehto.data.forecast.api.WeatherServiceImpl
 
 class ForecastRepositoryImpl(private val weatherService: WeatherServiceImpl) : ForecastRepository {
     override suspend fun getTodayWeather(position: Position): Forecast {

@@ -1,7 +1,8 @@
-package com.isen.mehto.data
+package com.isen.mehto.data.repositories.db.impl
 
 import com.isen.mehto.data.entity.Config
 import com.isen.mehto.data.entity.ConfigDAO
+import com.isen.mehto.data.repositories.db.ConfigRepository
 
 class OfflineConfigRepository(private val configDAO: ConfigDAO) : ConfigRepository {
     override suspend fun getAllConfigs(): List<Config> {

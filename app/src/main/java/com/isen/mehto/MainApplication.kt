@@ -2,13 +2,13 @@ package com.isen.mehto
 
 import android.app.Application
 import androidx.room.Room
-import com.isen.mehto.data.OfflineConfigRepository
-import com.isen.mehto.data.OfflineFavoriteLocationRepository
+import com.isen.mehto.data.repositories.db.impl.OfflineConfigRepository
+import com.isen.mehto.data.repositories.db.impl.OfflineFavoriteLocationRepository
 import com.isen.mehto.data.db.LocalDatabase
-import com.isen.mehto.data.repositories.ForecastRepository
-import com.isen.mehto.data.repositories.impl.ForecastRepositoryImpl
-import com.isen.mehto.weather.api.ForecastApi
-import com.isen.mehto.weather.api.WeatherServiceImpl
+import com.isen.mehto.data.repositories.api.ForecastRepository
+import com.isen.mehto.data.repositories.api.impl.ForecastRepositoryImpl
+import com.isen.mehto.data.forecast.api.ForecastApi
+import com.isen.mehto.data.forecast.api.WeatherServiceImpl
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import org.koin.dsl.module

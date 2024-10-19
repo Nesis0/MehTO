@@ -1,4 +1,4 @@
-package com.isen.mehto.weather.api
+package com.isen.mehto.data.forecast.api
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

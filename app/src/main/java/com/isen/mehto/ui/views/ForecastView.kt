@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.isen.mehto.R
 import com.isen.mehto.ui.theme.DashedDivider
-import com.isen.mehto.ui.viewmodels.ForecastViewModel
+import com.isen.mehto.viewmodels.ForecastViewModel
 import org.koin.androidx.compose.get
 
 @Composable
