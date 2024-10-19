@@ -5,8 +5,8 @@ import androidx.room.Room
 import com.isen.mehto.data.OfflineConfigRepository
 import com.isen.mehto.data.OfflineFavoriteLocationRepository
 import com.isen.mehto.data.db.LocalDatabase
-import com.isen.mehto.data.repositories.WeatherRepository
-import com.isen.mehto.data.repositories.impl.WeatherRepositoryImpl
+import com.isen.mehto.data.repositories.ForecastRepository
+import com.isen.mehto.data.repositories.impl.ForecastRepositoryImpl
 import com.isen.mehto.weather.api.ForecastApi
 import com.isen.mehto.weather.api.WeatherServiceImpl
 import org.koin.android.ext.koin.androidContext
@@ -29,7 +29,7 @@ class MainApplication : Application() {
 }
 
 val repositoryModule = module {
-    single<WeatherRepository> { WeatherRepositoryImpl(get()) }
+    single<ForecastRepository> { ForecastRepositoryImpl(get()) }
     single<OfflineConfigRepository> { OfflineConfigRepository(get()) }
     single<OfflineFavoriteLocationRepository> { OfflineFavoriteLocationRepository(get()) }
 }

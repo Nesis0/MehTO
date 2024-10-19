@@ -7,10 +7,10 @@ import com.isen.mehto.data.models.TemperatureUnit
 import com.isen.mehto.data.models.Weather
 import com.isen.mehto.data.models.WeatherResponse
 import com.isen.mehto.data.models.WeatherType
-import com.isen.mehto.data.repositories.WeatherRepository
+import com.isen.mehto.data.repositories.ForecastRepository
 import com.isen.mehto.weather.api.WeatherServiceImpl
 
-class WeatherRepositoryImpl(private val weatherService: WeatherServiceImpl) : WeatherRepository {
+class ForecastRepositoryImpl(private val weatherService: WeatherServiceImpl) : ForecastRepository {
     override suspend fun getTodayWeather(position: Position): Weather {
         val weatherResponse: WeatherResponse = weatherService.getTodayWeather(position.lat, position.lon)
         val weather: Weather = mapWeatherFromWeatherResponse(weatherResponse)
