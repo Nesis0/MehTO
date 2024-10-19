@@ -39,6 +39,7 @@ val dataSourcesModule = module { }
 val databaseModule = module {
     single { Room.databaseBuilder(get(), LocalDatabase::class.java, "LocalDatabase").build() }
     single { get<LocalDatabase>().configDAO() }
+    single { get<LocalDatabase>().FavoriteLocationDAO() }
 }
 
 val apiService = module {

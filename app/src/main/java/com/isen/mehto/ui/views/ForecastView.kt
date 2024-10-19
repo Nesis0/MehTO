@@ -34,7 +34,7 @@ import kotlin.math.roundToInt
 @Composable
 fun ForecastScreen() {
     val viewModel = viewModel<ForecastViewModel>(
-        factory = ForecastViewModel.ViewModelFactory(get(), get())
+        factory = ForecastViewModel.ViewModelFactory(get(), get(), get())
     )
 
     Column(
