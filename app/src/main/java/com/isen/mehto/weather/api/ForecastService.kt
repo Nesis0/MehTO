@@ -8,7 +8,7 @@ import retrofit2.http.Query
 
 const val API_KEY: String = "63b335fbcbab900e14a56296d96716b4"
 
-interface WeatherService {
+interface ForecastService {
     @GET("data/2.5/weather")
     suspend fun getTodayWeather(@Query("lat") latitude: Float, @Query("lon") longitude: Float, @Query("appid") apiKey: String? = API_KEY): WeatherResponse
 

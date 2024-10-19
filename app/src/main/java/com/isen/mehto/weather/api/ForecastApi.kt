@@ -10,5 +10,5 @@ object ForecastApi {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    val service: WeatherService = retrofit.create(WeatherService::class.java)
+    val service: ForecastService = retrofit.create(ForecastService::class.java)
 }
