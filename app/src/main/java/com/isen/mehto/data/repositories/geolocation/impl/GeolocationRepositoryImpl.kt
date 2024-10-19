@@ -8,5 +8,7 @@ class GeolocationRepositoryImpl(private val geolocationService: GeolocationServi
     override suspend fun getLastLocation(param: (Location?) -> Unit) {
         geolocationService.getLastLocation(param)
     }
-
+    override suspend fun isGeolocationPermitted(): Boolean {
+        return geolocationService.isGeolocationPermitted()
+    }
 }
