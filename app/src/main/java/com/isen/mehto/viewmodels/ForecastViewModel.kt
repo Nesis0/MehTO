@@ -33,8 +33,6 @@ class ForecastViewModel(
     }
 
     private suspend fun getEffectivePosition(): Position {
-        val settings = configRepository.read("")
-
         val isFavoritePreferred: Boolean = configRepository.read("geolocation").toBoolean()
         val isFavoriteEmpty = favoriteLocationRepository.getAllLocations().isEmpty()
 
