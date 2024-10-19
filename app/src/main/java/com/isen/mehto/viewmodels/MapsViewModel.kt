@@ -1,4 +1,4 @@
-package com.isen.mehto.ui.viewmodels
+package com.isen.mehto.viewmodels
 
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
