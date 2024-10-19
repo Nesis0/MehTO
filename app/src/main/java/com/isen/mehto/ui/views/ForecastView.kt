@@ -25,7 +25,7 @@ import com.isen.mehto.ui.viewmodels.ForecastViewModel
 import org.koin.androidx.compose.get
 
 @Composable
-fun WeatherScreen() {
+fun ForecastScreen() {
     val viewModel = viewModel<ForecastViewModel>(
         factory = ForecastViewModel.ViewModelFactory(get(), get())
     )
@@ -35,15 +35,15 @@ fun WeatherScreen() {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        CurrentWeather(viewModel)
+        CurrentForecast(viewModel)
         Spacer(modifier = Modifier.height(30.dp))
-        WeatherWeek(viewModel)
+        ForecastWeek(viewModel)
     }
 }
 
 @SuppressLint("DefaultLocale")
 @Composable
-private fun CurrentWeather(viewModel: ForecastViewModel) {
+private fun CurrentForecast(viewModel: ForecastViewModel) {
     if (viewModel.currentWeather.value == null) {
         Text(text = "Unable to show weather")
     }
@@ -64,7 +64,7 @@ private fun CurrentWeather(viewModel: ForecastViewModel) {
 }
 
 @Composable
-private fun WeatherWeek(viewModel: ForecastViewModel) {
+private fun ForecastWeek(viewModel: ForecastViewModel) {
     Column {
         if (viewModel.weatherWeek.value.isNotEmpty()) DashedDivider()
 
