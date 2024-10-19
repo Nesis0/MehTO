@@ -1,6 +1,6 @@
 package com.isen.mehto.data.repositories.impl
 
-import com.isen.mehto.data.models.ForecastResponse
+import com.isen.mehto.data.models.FiveDaysForecastResponse
 import com.isen.mehto.data.models.Position
 import com.isen.mehto.data.models.Temperature
 import com.isen.mehto.data.models.TemperatureUnit
@@ -18,8 +18,8 @@ class ForecastRepositoryImpl(private val weatherService: WeatherServiceImpl) : F
     }
 
     override suspend fun getForecast(position: Position): List<Weather> {
-        val forecastResponse: ForecastResponse = weatherService.getForecast(position.lat, position.lon)
-        val weatherList: MutableList<Weather> = mapWeatherListFromForecastResponse(forecastResponse)
+        val fiveDaysForecastResponse: FiveDaysForecastResponse = weatherService.getForecast(position.lat, position.lon)
+        val weatherList: MutableList<Weather> = mapWeatherListFromForecastResponse(fiveDaysForecastResponse)
         return weatherList
     }
 
@@ -27,10 +27,10 @@ class ForecastRepositoryImpl(private val weatherService: WeatherServiceImpl) : F
         return weatherService.getCoordinatesFromCity(city)
     }
 
-    private fun mapWeatherListFromForecastResponse(forecastResponse: ForecastResponse): MutableList<Weather> {
+    private fun mapWeatherListFromForecastResponse(fiveDaysForecastResponse: FiveDaysForecastResponse): MutableList<Weather> {
         val weatherList: MutableList<Weather> = mutableListOf()
-        for (weatherInfos in forecastResponse.list){
-            weatherInfos.name = forecastResponse.city.name
+        for (weatherInfos in fiveDaysForecastResponse.list){
+            weatherInfos.name = fiveDaysForecastResponse.city.name
             if (isNoonForecast(weatherInfos.dt_txt))
                 weatherList.add(mapWeatherFromWeatherResponse(weatherInfos))
         }

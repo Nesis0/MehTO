@@ -1,6 +1,6 @@
 package com.isen.mehto.data.models
 
-data class ForecastResponse(
+data class FiveDaysForecastResponse(
     val list: List<WeatherResponse>,
     val city: City
 )
