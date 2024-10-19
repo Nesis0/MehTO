@@ -43,6 +43,11 @@ class ForecastViewModel(
 
     }
 
+    private suspend fun getPreferredLocationPosition(): Position {
+        val preferredLocation: FavoriteLocation = favoriteLocationRepository.readByIndex("1")
+        return Position(preferredLocation.latitude, preferredLocation.longitude)
+    }
+
     class ViewModelFactory(
         private val forecastRepository: ForecastRepository,
         private val configRepository: OfflineConfigRepository,
