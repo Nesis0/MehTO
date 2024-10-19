@@ -11,7 +11,7 @@ import com.isen.mehto.data.models.Weather
 import com.isen.mehto.data.repositories.WeatherRepository
 import kotlinx.coroutines.launch
 
-class WeatherViewModel(
+class ForecastViewModel(
     private val weatherRepository: WeatherRepository,
     private val configRepository: OfflineConfigRepository
 ) : ViewModel() {
@@ -43,8 +43,8 @@ class WeatherViewModel(
     ) : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(WeatherViewModel::class.java)) {
-                return WeatherViewModel(
+            if (modelClass.isAssignableFrom(ForecastViewModel::class.java)) {
+                return ForecastViewModel(
                     weatherRepository = weatherRepository,
                     configRepository = configRepository,
                 ) as T

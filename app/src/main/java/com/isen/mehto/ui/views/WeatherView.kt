@@ -21,13 +21,13 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.isen.mehto.R
 import com.isen.mehto.ui.theme.DashedDivider
-import com.isen.mehto.ui.viewmodels.WeatherViewModel
+import com.isen.mehto.ui.viewmodels.ForecastViewModel
 import org.koin.androidx.compose.get
 
 @Composable
 fun WeatherScreen() {
-    val viewModel = viewModel<WeatherViewModel>(
-        factory = WeatherViewModel.ViewModelFactory(get(), get())
+    val viewModel = viewModel<ForecastViewModel>(
+        factory = ForecastViewModel.ViewModelFactory(get(), get())
     )
 
     Column(
@@ -43,7 +43,7 @@ fun WeatherScreen() {
 
 @SuppressLint("DefaultLocale")
 @Composable
-private fun CurrentWeather(viewModel: WeatherViewModel) {
+private fun CurrentWeather(viewModel: ForecastViewModel) {
     if (viewModel.currentWeather.value == null) {
         Text(text = "Unable to show weather")
     }
@@ -64,7 +64,7 @@ private fun CurrentWeather(viewModel: WeatherViewModel) {
 }
 
 @Composable
-private fun WeatherWeek(viewModel: WeatherViewModel) {
+private fun WeatherWeek(viewModel: ForecastViewModel) {
     Column {
         if (viewModel.weatherWeek.value.isNotEmpty()) DashedDivider()
 
