@@ -11,12 +11,14 @@ import com.isen.mehto.data.models.Position
 import com.isen.mehto.data.models.Forecast
 import com.isen.mehto.data.repositories.api.ForecastRepository
 import com.isen.mehto.data.repositories.db.impl.OfflineFavoriteLocationRepository
+import com.isen.mehto.data.repositories.geolocation.impl.GeolocationRepositoryImpl
 import kotlinx.coroutines.launch
 
 class ForecastViewModel(
     private val forecastRepository: ForecastRepository,
     private val configRepository: OfflineConfigRepository,
     private val favoriteLocationRepository: OfflineFavoriteLocationRepository,
+    private val geolocationRepository: GeolocationRepositoryImpl
 ) : ViewModel() {
     private val _currentForecast: MutableState<Forecast?> = mutableStateOf(null)
     val currentWeather = _currentForecast
@@ -52,6 +54,7 @@ class ForecastViewModel(
         private val forecastRepository: ForecastRepository,
         private val configRepository: OfflineConfigRepository,
         private val favoriteLocationRepository: OfflineFavoriteLocationRepository,
+        private val geolocationRepository: GeolocationRepositoryImpl
     ) : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -60,6 +63,7 @@ class ForecastViewModel(
                     forecastRepository = forecastRepository,
                     configRepository = configRepository,
                     favoriteLocationRepository = favoriteLocationRepository,
+                    geolocationRepository = geolocationRepository
                 ) as T
             }
             throw IllegalArgumentException("Unknown ViewModel class")
