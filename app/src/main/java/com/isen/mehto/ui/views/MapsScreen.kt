@@ -27,7 +27,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.isen.mehto.ui.theme.DashedDivider
-import com.isen.mehto.ui.viewmodels.MapsViewModel
+import com.isen.mehto.viewmodels.MapsViewModel
 
 @Composable
 fun MapsScreen() {
