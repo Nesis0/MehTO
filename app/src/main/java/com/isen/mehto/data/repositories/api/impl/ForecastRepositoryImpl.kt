@@ -10,6 +10,7 @@ import com.isen.mehto.data.models.SingleDayForecastResponse
 import com.isen.mehto.data.models.WeatherConditions
 import com.isen.mehto.data.repositories.api.ForecastRepository
 import com.isen.mehto.data.forecast.api.WeatherServiceImpl
+import com.isen.mehto.data.models.Location
 
 class ForecastRepositoryImpl(private val weatherService: WeatherServiceImpl) : ForecastRepository {
     override suspend fun getTodayWeather(position: Position): Forecast {
@@ -24,8 +25,8 @@ class ForecastRepositoryImpl(private val weatherService: WeatherServiceImpl) : F
         return forecastList
     }
 
-    override suspend fun getCoordinatesFromCity(city: String): List<Position> {
-        return weatherService.getCoordinatesFromCity(city)
+    override suspend fun getLocationFromName(name: String): List<Location> {
+        return weatherService.getLocationFromName(name)
     }
 
     private fun mapWeatherListFromForecastResponse(fiveDaysForecastResponse: FiveDaysForecastResponse): MutableList<Forecast> {

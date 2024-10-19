@@ -34,7 +34,7 @@ class ForecastViewModel(
         val configs = configRepository.read("")
 
         //TODO("Get position depending on settings' favorite (default current pos)")
-        return forecastRepository.getCoordinatesFromCity("Belfort") // ❤️❤️❤️
+        return listOf()
     }
 
     class ViewModelFactory(

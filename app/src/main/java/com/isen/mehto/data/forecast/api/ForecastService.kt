@@ -1,7 +1,7 @@
 package com.isen.mehto.data.forecast.api
 
 import com.isen.mehto.data.models.FiveDaysForecastResponse
-import com.isen.mehto.data.models.Position
+import com.isen.mehto.data.models.Location
 import com.isen.mehto.data.models.SingleDayForecastResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -16,5 +16,5 @@ interface ForecastService {
     suspend fun getForecast(@Query("lat") latitude: Float, @Query("lon") longitude: Float, @Query("appid") apiKey: String? = API_KEY): FiveDaysForecastResponse
 
     @GET("geo/1.0/direct")
-    suspend fun getCoordinatesFromCity(@Query("q") city: String, @Query("limit") limit: Int? = 5, @Query("appid") apiKey: String? = API_KEY): List<Position>
+    suspend fun getLocationFromName(@Query("q") name: String, @Query("limit") limit: Int? = 5, @Query("appid") apiKey: String? = API_KEY): List<Location>
 }
