@@ -25,8 +25,4 @@ class GeolocationService(private val context: Context){
     fun isGeolocationPermitted(): Boolean {
         return ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
     }
-
-    private fun askForPermission(){
-        ActivityCompat.requestPermissions(activity, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 1)
-    }
 }
