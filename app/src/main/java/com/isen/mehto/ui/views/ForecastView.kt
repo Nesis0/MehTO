@@ -54,7 +54,7 @@ private fun CurrentForecast(viewModel: ForecastViewModel) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Image(
-                painter = painterResource(id = it.weatherType.image),
+                painter = painterResource(id = it.weatherConditions.image),
                 contentDescription = "Weather Icon",
             )
             Text(fontSize = 32.sp, text = "${String.format("%.2f", it.temperature.toCelsius())} °C")
@@ -81,7 +81,7 @@ private fun ForecastWeek(viewModel: ForecastViewModel) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Image(
                             modifier = Modifier.fillMaxHeight(0.8f),
-                            painter = painterResource(id = it.weatherType.image),
+                            painter = painterResource(id = it.weatherConditions.image),
                             contentDescription = "Weather Icon",
                         )
                         Spacer(modifier = Modifier.width(20.dp))

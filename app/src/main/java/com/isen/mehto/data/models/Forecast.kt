@@ -3,7 +3,7 @@ package com.isen.mehto.data.models
 
 import com.isen.mehto.R
 
-enum class WeatherType(val image: Int) {
+enum class WeatherConditions(val image: Int) {
     SUNNY(R.drawable.ic_sunny),
     CLOUDY(R.drawable.ic_cloudy),
     DRIZZLY(-1), //TODO
@@ -16,7 +16,7 @@ enum class WeatherType(val image: Int) {
 data class Forecast(
     val city: String,
     val temperature: Temperature,
-    val weatherType: WeatherType,
+    val weatherConditions: WeatherConditions,
     val rainRisk: Int
 )
 
