@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.isen.mehto.data.OfflineConfigRepository
 import com.isen.mehto.data.models.Position
-import com.isen.mehto.data.models.Weather
+import com.isen.mehto.data.models.Forecast
 import com.isen.mehto.data.repositories.ForecastRepository
 import kotlinx.coroutines.launch
 
@@ -15,18 +15,18 @@ class ForecastViewModel(
     private val forecastRepository: ForecastRepository,
     private val configRepository: OfflineConfigRepository
 ) : ViewModel() {
-    private val _currentWeather: MutableState<Weather?> = mutableStateOf(null)
-    val currentWeather = _currentWeather
-    private val _weatherWeek: MutableState<List<Weather>> = mutableStateOf(listOf())
-    val weatherWeek = _weatherWeek
+    private val _currentForecast: MutableState<Forecast?> = mutableStateOf(null)
+    val currentWeather = _currentForecast
+    private val _forecastWeek: MutableState<List<Forecast>> = mutableStateOf(listOf())
+    val weatherWeek = _forecastWeek
 
     init {
         viewModelScope.launch {
             val positions: List<Position> = getEffectivePosition()
             //TODO("Get the user's choice between possibility")
-            _currentWeather.value = forecastRepository.getTodayWeather(positions[0])
+            _currentForecast.value = forecastRepository.getTodayWeather(positions[0])
 
-            val next5daysWeather: List<Weather> = forecastRepository.getForecast(positions[0])
+            val next5DaysForecast: List<Forecast> = forecastRepository.getForecast(positions[0])
         }
     }
 

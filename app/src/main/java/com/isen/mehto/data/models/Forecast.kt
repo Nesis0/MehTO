@@ -13,7 +13,7 @@ enum class WeatherType(val image: Int) {
     UNKNOWN(-1) //TODO
 }
 
-data class Weather(
+data class Forecast(
     val city: String,
     val temperature: Temperature,
     val weatherType: WeatherType,
