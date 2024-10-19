@@ -31,9 +31,14 @@ class WeatherRepositoryImpl(private val weatherService: WeatherServiceImpl) : We
         val weatherList: MutableList<Weather> = mutableListOf()
         for (weatherInfos in forecastResponse.list){
             weatherInfos.name = forecastResponse.city.name
-            weatherList.add(mapWeatherFromWeatherResponse(weatherInfos))
+            if (isNoonForecast(weatherInfos.dt_txt))
+                weatherList.add(mapWeatherFromWeatherResponse(weatherInfos))
         }
         return weatherList
+    }
+
+    private fun isNoonForecast(dt: String): Boolean {
+        return dt.contains("12:00:00")
     }
 
     private fun mapWeatherFromWeatherResponse(weatherResponse: WeatherResponse): Weather{
