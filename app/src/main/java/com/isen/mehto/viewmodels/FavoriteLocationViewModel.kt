@@ -32,13 +32,13 @@ class FavoriteLocationViewModel(private val favoriteLocationRepository: OfflineF
     }
 
     class ViewModelFactory(
-        private val configRepository: OfflineConfigRepository,
+        private val favoriteLocationRepository: OfflineFavoriteLocationRepository,
     ) : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(SettingsViewModel::class.java)) {
-                return SettingsViewModel(
-                    configRepository = configRepository,
+            if (modelClass.isAssignableFrom(FavoriteLocationViewModel::class.java)) {
+                return FavoriteLocationViewModel(
+                    favoriteLocationRepository = favoriteLocationRepository,
                 ) as T
             }
             throw IllegalArgumentException("Unknown ViewModel class")
