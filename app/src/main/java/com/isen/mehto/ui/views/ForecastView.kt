@@ -63,6 +63,7 @@ private fun CurrentForecast(viewModel: ForecastViewModel) {
     }
 }
 
+@SuppressLint("DefaultLocale")
 @Composable
 private fun ForecastWeek(viewModel: ForecastViewModel) {
     Column {
@@ -85,7 +86,7 @@ private fun ForecastWeek(viewModel: ForecastViewModel) {
                             contentDescription = "Weather Icon",
                         )
                         Spacer(modifier = Modifier.width(20.dp))
-                        Text(fontSize = 26.sp, text = "${it.temperature.toCelsius()} °C")
+                        Text(fontSize = 26.sp, text = "${String.format("%.2f", it.temperature.toCelsius())} °C")
                     }
 
                     Row(verticalAlignment = Alignment.CenterVertically) {

@@ -26,7 +26,7 @@ class ForecastViewModel(
             //TODO("Get the user's choice between possibility")
             _currentForecast.value = forecastRepository.getTodayWeather(positions[0])
 
-            val next5DaysForecast: List<Forecast> = forecastRepository.getForecast(positions[0])
+            _forecastWeek.value = forecastRepository.getForecast(positions[0])
         }
     }
 
