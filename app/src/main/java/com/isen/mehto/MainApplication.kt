@@ -10,7 +10,6 @@ import com.isen.mehto.data.repositories.api.impl.ForecastRepositoryImpl
 import com.isen.mehto.data.forecast.api.ForecastApi
 import com.isen.mehto.data.forecast.api.WeatherServiceImpl
 import com.isen.mehto.data.geolocation.GeolocationService
-import com.isen.mehto.data.repositories.geolocation.GeolocationRepository
 import com.isen.mehto.data.repositories.geolocation.impl.GeolocationRepositoryImpl
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -53,5 +52,5 @@ val apiService = module {
 
 val geolocationService = module {
     single { GeolocationService(get(), get()) }
-    single<GeolocationRepository> { GeolocationRepositoryImpl(get()) }
+    single<GeolocationRepositoryImpl> { GeolocationRepositoryImpl(get()) }
 }
