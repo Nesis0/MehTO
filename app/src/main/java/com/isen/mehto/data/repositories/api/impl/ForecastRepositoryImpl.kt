@@ -1,5 +1,6 @@
 package com.isen.mehto.data.repositories.api.impl
 
+import android.health.connect.datatypes.units.Percentage
 import com.isen.mehto.data.models.FiveDaysForecastResponse
 import com.isen.mehto.data.models.Position
 import com.isen.mehto.data.models.Temperature
@@ -42,7 +43,7 @@ class ForecastRepositoryImpl(private val weatherService: WeatherServiceImpl) : F
     }
 
     private fun mapWeatherFromWeatherResponse(singleDayForecastResponse: SingleDayForecastResponse): Forecast{
-        return Forecast(singleDayForecastResponse.name, Temperature(singleDayForecastResponse.main.temp, TemperatureUnit.KELVIN), getWeatherTypeFromResponseWeatherType(singleDayForecastResponse.weather[0].main) ,singleDayForecastResponse.main.humidity)
+        return Forecast(singleDayForecastResponse.name, Temperature(singleDayForecastResponse.main.temp, TemperatureUnit.KELVIN), getWeatherTypeFromResponseWeatherType(singleDayForecastResponse.weather[0].main), Percentage.fromValue(singleDayForecastResponse.main.humidity.toDouble()))
     }
 
     private fun getWeatherTypeFromResponseWeatherType(weatherType: String): WeatherConditions {
