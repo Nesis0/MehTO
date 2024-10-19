@@ -7,7 +7,7 @@ import com.isen.mehto.data.OfflineFavoriteLocationRepository
 import com.isen.mehto.data.db.LocalDatabase
 import com.isen.mehto.data.repositories.WeatherRepository
 import com.isen.mehto.data.repositories.impl.WeatherRepositoryImpl
-import com.isen.mehto.weather.api.WeatherCall
+import com.isen.mehto.weather.api.ForecastApi
 import com.isen.mehto.weather.api.WeatherServiceImpl
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -42,6 +42,6 @@ val databaseModule = module {
 }
 
 val apiService = module {
-    single { WeatherCall.service }
+    single { ForecastApi.service }
     single { WeatherServiceImpl() }
 }
