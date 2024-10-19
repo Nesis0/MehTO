@@ -23,11 +23,10 @@ class WeatherViewModel(
     init {
         viewModelScope.launch {
             val positions: List<Position> = getEffectivePosition()
-            _currentWeather.value = weatherRepository.getTodayWeather(position)
-//
-//            val start = OffsetDateTime.now().plusDays(1)
-//            val end = start.plusDays(6)
-//            _weatherWeek.value = weatherRepository.getWeather(position, start, end)
+            //TODO("Get the user's choice between possibility")
+            _currentWeather.value = weatherRepository.getTodayWeather(positions[0])
+
+            val next5daysWeather: List<Weather> = weatherRepository.getForecast(positions[0])
         }
     }
 
@@ -35,7 +34,7 @@ class WeatherViewModel(
         val configs = configRepository.read("")
 
         //TODO("Get position depending on settings' favorite (default current pos)")
-        return Position(0f,0f)
+        return weatherRepository.getCoordinatesFromCity("Belfort") // ❤️❤️❤️
     }
 
     class ViewModelFactory(
