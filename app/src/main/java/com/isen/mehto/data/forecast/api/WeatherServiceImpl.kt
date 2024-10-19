@@ -14,6 +14,9 @@ class WeatherServiceImpl: ForecastService {
     }
 
     override suspend fun getCoordinatesFromCity(city: String, limit: Int?, apiKey: String?): List<Position> {
+        if (city.isEmpty())
+            return listOf()
+
         return ForecastApi.service.getCoordinatesFromCity(city)
     }
 }
