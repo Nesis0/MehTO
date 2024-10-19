@@ -9,9 +9,8 @@ import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 
-class GeolocationService(private val context: Context, private val activity: Activity) {
-    private val fusedLocationClient: FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(activity)
 class GeolocationService(private val context: Context){
+    private val fusedLocationClient: FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context)
 
     fun getLastLocation(onSuccess: (Location?) -> Unit) {
         fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
