@@ -14,11 +14,8 @@ class GeolocationService(private val context: Context, private val activity: Act
 class GeolocationService(private val context: Context){
 
     fun getLastLocation(onSuccess: (Location?) -> Unit) {
-        if (!checkForPermission())
-            askForPermission()
-
-        fusedLocationClient.lastLocation.addOnSuccessListener {
-            location: Location? -> onSuccess(location)
+        fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
+            onSuccess(location)
         }
     }
 
