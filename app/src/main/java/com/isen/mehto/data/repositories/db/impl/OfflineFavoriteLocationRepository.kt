@@ -14,8 +14,8 @@ class OfflineFavoriteLocationRepository(private val cityDAO: FavoriteLocationDAO
         return cityDAO.insert(location)
     }
 
-    override suspend fun read(displayName: String): FavoriteLocation? {
-        return cityDAO.read(displayName)
+    override suspend fun readByLocationName(displayName: String): FavoriteLocation? {
+        return cityDAO.readByLocationName(displayName)
     }
 
     override suspend fun readByIndex(preferenceIndex: String): FavoriteLocation{

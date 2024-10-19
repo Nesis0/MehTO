@@ -16,7 +16,7 @@ class FavoriteLocationViewModel(private val favoriteLocationRepository: OfflineF
     }
 
     suspend fun getLocationInfo(displayName: String): FavoriteLocation? {
-        return favoriteLocationRepository.read(displayName)
+        return favoriteLocationRepository.readByLocationName(displayName)
     }
 
     suspend fun updateLocation(location: FavoriteLocation) {

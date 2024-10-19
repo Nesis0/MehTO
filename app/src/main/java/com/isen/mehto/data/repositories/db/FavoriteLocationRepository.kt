@@ -7,7 +7,7 @@ interface FavoriteLocationRepository {
 
     suspend fun insert(location: FavoriteLocation)
 
-    suspend fun read(displayName: String): FavoriteLocation?
+    suspend fun readByLocationName(displayName: String): FavoriteLocation?
 
     suspend fun readByIndex(preferenceIndex: String): FavoriteLocation
 
