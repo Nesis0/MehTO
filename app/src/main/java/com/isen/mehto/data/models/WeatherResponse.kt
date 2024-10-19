@@ -3,7 +3,8 @@ package com.isen.mehto.data.models
 data class WeatherResponse(
     val weather: List<WeatherCondition>,
     val main: Infos,
-    var name: String
+    var name: String,
+    val dt_txt: String
 )
 
 data class WeatherCondition(
