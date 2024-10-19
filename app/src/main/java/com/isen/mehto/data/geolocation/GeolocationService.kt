@@ -11,6 +11,7 @@ import com.google.android.gms.location.LocationServices
 
 class GeolocationService(private val context: Context, private val activity: Activity) {
     private val fusedLocationClient: FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(activity)
+class GeolocationService(private val context: Context){
 
     fun getLastLocation(onSuccess: (Location?) -> Unit) {
         if (!checkForPermission())

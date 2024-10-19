@@ -51,6 +51,6 @@ val apiService = module {
 }
 
 val geolocationService = module {
-    single { GeolocationService(get(), get()) }
+    single { GeolocationService(get()) }
     single<GeolocationRepositoryImpl> { GeolocationRepositoryImpl(get()) }
 }
