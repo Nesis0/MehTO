@@ -11,22 +11,36 @@ import com.isen.mehto.data.models.WeatherConditions
 import com.isen.mehto.data.repositories.api.ForecastRepository
 import com.isen.mehto.data.forecast.api.WeatherServiceImpl
 import com.isen.mehto.data.models.Location
+import retrofit2.HttpException
 
 class ForecastRepositoryImpl(private val weatherService: WeatherServiceImpl) : ForecastRepository {
     override suspend fun getTodayWeather(position: Position): Forecast {
-        val singleDayForecastResponse: SingleDayForecastResponse = weatherService.getTodayWeather(position.lat, position.lon)
-        val forecast: Forecast = mapWeatherFromWeatherResponse(singleDayForecastResponse)
-        return forecast
+        return try {
+            mapWeatherFromWeatherResponse(weatherService.getTodayWeather(position.lat, position.lon))
+        } catch (e: HttpException) {
+            Forecast(
+                "Unknown",
+                Temperature(0.0, TemperatureUnit.CELSIUS),
+                WeatherConditions.UNKNOWN,
+                Percentage.fromValue(0.0)
+            )
+        }
     }
 
     override suspend fun getForecast(position: Position): List<Forecast> {
-        val fiveDaysForecastResponse: FiveDaysForecastResponse = weatherService.getForecast(position.lat, position.lon)
-        val forecastList: MutableList<Forecast> = mapWeatherListFromForecastResponse(fiveDaysForecastResponse)
-        return forecastList
+        return try {
+            mapWeatherListFromForecastResponse(weatherService.getForecast(position.lat, position.lon))
+        } catch (e: HttpException) {
+            listOf()
+        }
     }
 
     override suspend fun getLocationFromName(name: String): List<Location> {
-        return weatherService.getLocationFromName(name)
+        return try {
+            weatherService.getLocationFromName(name)
+        } catch (e: HttpException) {
+            listOf()
+        }
     }
 
     private fun mapWeatherListFromForecastResponse(fiveDaysForecastResponse: FiveDaysForecastResponse): MutableList<Forecast> {

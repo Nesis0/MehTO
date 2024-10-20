@@ -14,9 +14,6 @@ class WeatherServiceImpl: ForecastService {
     }
 
     override suspend fun getLocationFromName(name: String, limit: Int?, apiKey: String?): List<Location> {
-        if (name.isEmpty())
-            return listOf()
-
         return ForecastApi.service.getLocationFromName(name)
     }
 }
