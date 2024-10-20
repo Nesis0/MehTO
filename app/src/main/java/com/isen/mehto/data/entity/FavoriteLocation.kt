@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 @Entity
 data class FavoriteLocation(
     @PrimaryKey(autoGenerate = true)
-    val location_id: Int,
+    val location_id: Int? = null,
 
     @ColumnInfo(name = "preference_index")
     val preference_index: Int,

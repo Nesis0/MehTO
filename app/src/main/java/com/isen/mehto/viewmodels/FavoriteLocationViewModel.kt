@@ -88,14 +88,13 @@ class FavoriteLocationViewModel(
 
     fun saveLocation(location: Location) {
         viewModelScope.launch {
-            val lastIndex = favoriteLocationRepository.getAllLocations().size + 1
             favoriteLocationRepository.insert(
                 FavoriteLocation(
-                    lastIndex,
-                    lastIndex,
-                    location.name,
-                    location.lat.toFloat(),
-                    location.lon.toFloat(),
+                    preference_index = favoriteLocationRepository.getAllLocations()
+                        .maxOfOrNull { it.preference_index } ?: 1,
+                    display_name = location.name,
+                    latitude = location.lat.toFloat(),
+                    longitude = location.lon.toFloat(),
                 )
             )
         }
