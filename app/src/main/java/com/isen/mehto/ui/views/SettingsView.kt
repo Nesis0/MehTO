@@ -5,7 +5,6 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -75,49 +74,45 @@ fun SettingsScreen() {
 @Composable
 fun ConfigValueSelector(configItem: ConfigItem) {
     Box {
-        when (configItem.config.value.type) {
-            ConfigType.UNIT -> UnitPicker(configItem)
+        Row(modifier = Modifier
+            .clickable { configItem.isExpanded.value = true }
+            .align(Alignment.CenterEnd)
+        ) {
+            Text(text = configItem.config.value.value)
 
-            ConfigType.ENABLE_GEOLOCATION -> {
-                //TODO()
+            if (configItem.isExpanded.value) {
+                Icon(
+                    imageVector = Icons.AutoMirrored.Rounded.KeyboardArrowLeft,
+                    contentDescription = "DropDown Opened"
+                )
+            } else {
+                Icon(
+                    imageVector = Icons.Rounded.KeyboardArrowDown,
+                    contentDescription = "DropDown Closed"
+                )
+            }
+        }
+        DropdownMenu(
+            expanded = configItem.isExpanded.value,
+            onDismissRequest = { configItem.isExpanded.value = false },
+            modifier = Modifier.align(Alignment.CenterEnd)
+        ) {
+            when (configItem.config.value.type) {
+                ConfigType.UNIT -> TemperatureUnit.entries.forEach {
+                    Option(it.toString(), configItem)
+                }
+
+                ConfigType.ENABLE_GEOLOCATION -> {
+                    Option("true", configItem)
+                    Option("false", configItem)
+                }
             }
         }
     }
 }
 
 @Composable
-private fun BoxScope.UnitPicker(configItem: ConfigItem) {
-    Row(modifier = Modifier
-        .clickable { configItem.isExpanded.value = true }
-        .align(Alignment.CenterEnd)
-    ) {
-        Text(text = configItem.config.value.value)
-
-        if (configItem.isExpanded.value) {
-            Icon(
-                imageVector = Icons.AutoMirrored.Rounded.KeyboardArrowLeft,
-                contentDescription = "DropDown Opened"
-            )
-        } else {
-            Icon(
-                imageVector = Icons.Rounded.KeyboardArrowDown,
-                contentDescription = "DropDown Closed"
-            )
-        }
-    }
-    DropdownMenu(
-        expanded = configItem.isExpanded.value,
-        onDismissRequest = { configItem.isExpanded.value = false },
-        modifier = Modifier.align(Alignment.CenterEnd)
-    ) {
-        TemperatureUnit.entries.forEach {
-            TemperatureUnitItem(it.toString(), configItem)
-        }
-    }
-}
-
-@Composable
-private fun TemperatureUnitItem(value: String, configItem: ConfigItem) {
+private fun Option(value: String, configItem: ConfigItem) {
     val viewModel = viewModel<SettingsViewModel>(
         factory = SettingsViewModel.ViewModelFactory(get())
     )
