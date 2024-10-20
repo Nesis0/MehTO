@@ -1,5 +1,6 @@
 package com.isen.mehto.viewmodels
 
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -8,14 +9,21 @@ import com.isen.mehto.data.repositories.db.impl.OfflineConfigRepository
 import com.isen.mehto.data.entity.Config
 import kotlinx.coroutines.launch
 
+data class ConfigItem (
+    val config: Config,
+    val isExpanded: MutableState<Boolean>,
+)
+
 class SettingsViewModel(private val configRepository: OfflineConfigRepository) : ViewModel() {
-    private val _settings = mutableStateOf(listOf<Config>())
+    private val _settings = mutableStateOf(listOf<ConfigItem>())
     val settings = _settings
 
     init {
         viewModelScope.launch {
             configRepository.initConfig()
-            _settings.value = configRepository.getAllConfigs()
+            _settings.value = configRepository.getAllConfigs().map {
+                ConfigItem(it, mutableStateOf(false))
+            }
         }
     }
 
