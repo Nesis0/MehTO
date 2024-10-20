@@ -41,7 +41,7 @@ fun SettingsScreen() {
         ) {
             viewModel.settings.value.forEachIndexed { index, config ->
                 Row(modifier = Modifier.padding(10.dp)) {
-                    Text(text = config.name)
+                    Text(text = config.type.displayName)
                 }
 
                 if (index < viewModel.settings.value.size - 1)

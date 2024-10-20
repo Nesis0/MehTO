@@ -14,11 +14,11 @@ interface ConfigDAO {
     @Insert
     suspend fun insert(config: Config)
 
-    @Query("INSERT OR IGNORE INTO config (name, value) VALUES (:name, :value)")
-    suspend fun initInsert(name: String, value: String)
+    @Query("INSERT OR IGNORE INTO config (type, value) VALUES (:type, :value)")
+    suspend fun initInsert(type: ConfigType, value: String)
 
-    @Query("SELECT value FROM config WHERE name = :name")
-    suspend fun read(name: String): String?
+    @Query("SELECT value FROM config WHERE type = :type")
+    suspend fun read(type: String): String?
 
     @Update
     suspend fun update(config: Config)
