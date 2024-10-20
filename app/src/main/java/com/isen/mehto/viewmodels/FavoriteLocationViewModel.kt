@@ -1,26 +1,60 @@
 package com.isen.mehto.viewmodels
 
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.isen.mehto.data.repositories.db.impl.OfflineFavoriteLocationRepository
 import com.isen.mehto.data.entity.FavoriteLocation
+import com.isen.mehto.data.models.Location
 import com.isen.mehto.data.models.Position
+import com.isen.mehto.data.repositories.api.ForecastRepository
 import kotlinx.coroutines.launch
 
 class FavoriteLocationViewModel(
     private val favoriteLocationRepository: OfflineFavoriteLocationRepository,
+    private val forecastRepository: ForecastRepository,
 ) : ViewModel() {
     private val _userInput = mutableStateOf(String())
     val userInput = _userInput
     private val _position = mutableStateOf(Position(0.0f,0.0f))
     var position = _position
+    private val _locations: MutableState<List<Location>> = mutableStateOf(listOf())
+    val locations = _locations
+    private val _isSearchActive = mutableStateOf(false)
+    val isSearchActive = _isSearchActive
 
     init {
         viewModelScope.launch {
 
         }
+    }
+
+    fun onSearchTextChange(text: String) {
+        _userInput.value = text
+        viewModelScope.launch {
+            _locations.value = forecastRepository.getLocationFromName(text)
+        }
+    }
+
+    fun onValidate() {
+        _isSearchActive.value = false
+
+        if (_locations.value.isNotEmpty())
+            saveLocation(_locations.value[0])
+    }
+
+    fun onSearchToggle() {
+        _isSearchActive.value = !_isSearchActive.value
+    }
+
+    fun onSearchIconClick() {
+        onSearchToggle()
+    }
+
+    fun saveLocation(location: Location) {
+        //TODO
     }
 
     suspend fun getAllLocations(): List<FavoriteLocation> {
@@ -49,12 +83,14 @@ class FavoriteLocationViewModel(
 
     class ViewModelFactory(
         private val favoriteLocationRepository: OfflineFavoriteLocationRepository,
+        private val forecastRepository: ForecastRepository,
     ) : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(FavoriteLocationViewModel::class.java)) {
                 return FavoriteLocationViewModel(
                     favoriteLocationRepository = favoriteLocationRepository,
+                    forecastRepository = forecastRepository,
                 ) as T
             }
             throw IllegalArgumentException("Unknown ViewModel class")
