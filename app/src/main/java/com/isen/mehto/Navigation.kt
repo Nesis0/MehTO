@@ -136,7 +136,8 @@ fun Navigation(
                     }
                 }
             }
-        }
+        },
+        gesturesEnabled = false
     ) {
         Scaffold(
             topBar = { CustomAppBar( drawerState = drawerState ) }
