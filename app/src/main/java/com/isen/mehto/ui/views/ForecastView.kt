@@ -2,9 +2,7 @@ package com.isen.mehto.ui.views
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -12,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
@@ -20,13 +17,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.isen.mehto.R
 import com.isen.mehto.data.models.Forecast
+import com.isen.mehto.ui.theme.DoubleBorderContainer
 import com.isen.mehto.viewmodels.ForecastViewModel
 import org.koin.androidx.compose.get
 import kotlin.math.roundToInt
@@ -72,17 +69,11 @@ private fun CurrentForecast(viewModel: ForecastViewModel) {
 
 @Composable
 private fun ForecastWeek(viewModel: ForecastViewModel) {
-    val blackBorder = Modifier
-        .border(width = 2.dp, color = Color.Black, shape = RectangleShape)
-        .padding(5.dp)
-
-    Box(modifier = blackBorder.fillMaxWidth(0.95f)) {
-        Column(modifier = blackBorder, horizontalAlignment = Alignment.CenterHorizontally) {
-            viewModel.weatherWeek.value.forEachIndexed { index, weather ->
-                weather.let {
-                    ForecastItem(it)
-                    if (viewModel.weatherWeek.value.size != index + 1) HorizontalDivider(color = Color.Black)
-                }
+    DoubleBorderContainer {
+        viewModel.weatherWeek.value.forEachIndexed { index, weather ->
+            weather.let {
+                ForecastItem(it)
+                if (viewModel.weatherWeek.value.size != index + 1) HorizontalDivider(color = Color.Black)
             }
         }
     }

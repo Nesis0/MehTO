@@ -148,7 +148,11 @@ fun Navigation(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-                NavHost(navController = navController, startDestination = menuItems[0].route) {
+                NavHost(
+                    navController = navController,
+                    startDestination = menuItems[0].route,
+                    modifier = Modifier.fillMaxSize(0.95f)
+                ) {
                     menuItems.forEach { item ->
                         composable(item.route) { item.screen() }
                     }
