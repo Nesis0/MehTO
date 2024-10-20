@@ -46,15 +46,15 @@ class ForecastViewModel(
         if (!isFavoritePreferred && geolocationRepository.isGeolocationPermitted())
             return getGeolocationPosition()
 
-        return Position(0f, 0f)
+        return Position(0.0, 0.0)
     }
 
     private suspend fun getGeolocationPosition(): Position {
-        val geolocationPos = Position(0f, 0f)
+        val geolocationPos = Position(0.0, 0.0)
         geolocationRepository.getLastLocation { location: Location? ->
             if (location != null) {
-                geolocationPos.lat = location.latitude.toFloat()
-                geolocationPos.lon = location.longitude.toFloat()
+                geolocationPos.lat = location.latitude
+                geolocationPos.lon = location.longitude
             }
         }
         return geolocationPos

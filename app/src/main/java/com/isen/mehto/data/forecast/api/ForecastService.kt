@@ -10,10 +10,10 @@ const val API_KEY: String = "63b335fbcbab900e14a56296d96716b4"
 
 interface ForecastService {
     @GET("data/2.5/weather")
-    suspend fun getTodayWeather(@Query("lat") latitude: Float, @Query("lon") longitude: Float, @Query("appid") apiKey: String? = API_KEY): SingleDayForecastResponse
+    suspend fun getTodayWeather(@Query("lat") latitude: Double, @Query("lon") longitude: Double, @Query("appid") apiKey: String? = API_KEY): SingleDayForecastResponse
 
     @GET("/data/2.5/forecast")
-    suspend fun getForecast(@Query("lat") latitude: Float, @Query("lon") longitude: Float, @Query("appid") apiKey: String? = API_KEY): FiveDaysForecastResponse
+    suspend fun getForecast(@Query("lat") latitude: Double, @Query("lon") longitude: Double, @Query("appid") apiKey: String? = API_KEY): FiveDaysForecastResponse
 
     @GET("geo/1.0/direct")
     suspend fun getLocationFromName(@Query("q") name: String, @Query("limit") limit: Int? = 5, @Query("appid") apiKey: String? = API_KEY): List<Location>

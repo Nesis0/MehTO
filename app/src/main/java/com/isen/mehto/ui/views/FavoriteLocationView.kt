@@ -147,8 +147,8 @@ fun AddFavoriteLocationScreen(viewModel: FavoriteLocationViewModel) {
 
     LaunchedEffect(cameraPositionState.position.target) {
         viewModel.position.value = Position(
-            cameraPositionState.position.target.latitude.toFloat(),
-            cameraPositionState.position.target.longitude.toFloat(),
+            cameraPositionState.position.target.latitude,
+            cameraPositionState.position.target.longitude,
         )
     }
 

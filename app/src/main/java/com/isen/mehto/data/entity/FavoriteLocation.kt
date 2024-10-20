@@ -16,8 +16,8 @@ data class FavoriteLocation(
     val display_name: String,
 
     @ColumnInfo(name = "latitude")
-    val latitude: Float,
+    val latitude: Double,
 
     @ColumnInfo(name = "longitude")
-    val longitude: Float
+    val longitude: Double
 )

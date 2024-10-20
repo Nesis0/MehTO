@@ -5,11 +5,11 @@ import com.isen.mehto.data.models.Location
 import com.isen.mehto.data.models.SingleDayForecastResponse
 
 class WeatherServiceImpl: ForecastService {
-    override suspend fun getTodayWeather(latitude: Float, longitude: Float, apiKey: String?): SingleDayForecastResponse {
+    override suspend fun getTodayWeather(latitude: Double, longitude: Double, apiKey: String?): SingleDayForecastResponse {
         return ForecastApi.service.getTodayWeather(latitude, longitude)
     }
 
-    override suspend fun getForecast(latitude: Float, longitude: Float, apiKey: String?): FiveDaysForecastResponse {
+    override suspend fun getForecast(latitude: Double, longitude: Double, apiKey: String?): FiveDaysForecastResponse {
         return ForecastApi.service.getForecast(latitude, longitude)
     }
 

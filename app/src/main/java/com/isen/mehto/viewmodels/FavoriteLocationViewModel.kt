@@ -25,7 +25,7 @@ class FavoriteLocationViewModel(
 ) : ViewModel() {
     private val _userInput = mutableStateOf(String())
     val userInput = _userInput
-    private val _position = mutableStateOf(Position(0.0f,0.0f))
+    private val _position = mutableStateOf(Position(0.0,0.0))
     val position = _position
     private val _locations = mutableStateOf(listOf<Location>())
     val locations = _locations
@@ -93,8 +93,8 @@ class FavoriteLocationViewModel(
                     preference_index = favoriteLocationRepository.getAllLocations()
                         .maxOfOrNull { it.preference_index } ?: 1,
                     display_name = location.name,
-                    latitude = location.lat.toFloat(),
-                    longitude = location.lon.toFloat(),
+                    latitude = location.lat,
+                    longitude = location.lon,
                 )
             )
         }
