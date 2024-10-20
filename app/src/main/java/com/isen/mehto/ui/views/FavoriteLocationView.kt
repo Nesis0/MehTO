@@ -31,20 +31,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.google.maps.android.compose.GoogleMap
-import com.google.maps.android.compose.Marker
-import com.google.maps.android.compose.MarkerState
-import com.google.maps.android.compose.rememberCameraPositionState
 import com.isen.mehto.R
 import com.isen.mehto.data.models.Position
 import com.isen.mehto.ui.theme.DashedDivider
 import com.isen.mehto.ui.theme.DoubleBorderContainer
 import com.isen.mehto.viewmodels.FavoriteLocationViewModel
 import org.koin.androidx.compose.get
+import org.osmdroid.tileprovider.tilesource.TileSourceFactory
+import org.osmdroid.util.GeoPoint
+import org.osmdroid.views.MapView
 import kotlin.math.roundToInt
 
 
@@ -143,12 +144,13 @@ fun ManageFavoriteLocation(viewModel: FavoriteLocationViewModel) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddFavoriteLocationScreen(viewModel: FavoriteLocationViewModel) {
-    val cameraPositionState = rememberCameraPositionState()
+    val context = LocalContext.current
 
-    LaunchedEffect(cameraPositionState.position.target) {
+    val cameraPositionState = viewModel.position
+    LaunchedEffect(cameraPositionState.value) {
         viewModel.position.value = Position(
-            cameraPositionState.position.target.latitude.toFloat(),
-            cameraPositionState.position.target.longitude.toFloat(),
+            cameraPositionState.value.lat,
+            cameraPositionState.value.lon,
         )
     }
 
@@ -195,8 +197,21 @@ fun AddFavoriteLocationScreen(viewModel: FavoriteLocationViewModel) {
 
         Spacer(Modifier.height(20.dp))
 
-        GoogleMap(cameraPositionState = cameraPositionState) {
-            Marker(state = MarkerState(position = cameraPositionState.position.target))
-        }
+        AndroidView(
+            factory = {
+                MapView(context).apply {
+                    setTileSource(TileSourceFactory.OpenTopo)
+                    setMultiTouchControls(true)
+                    setBuiltInZoomControls(true)
+                    controller.setZoom(15.0)
+                    controller.setCenter(GeoPoint(cameraPositionState.value.lat.toDouble(), cameraPositionState.value.lon.toDouble()))
+                    println("test=" + cameraPositionState.value)
+                }
+            },
+            update = { mapView ->
+                mapView.controller.setCenter(GeoPoint(cameraPositionState.value.lat.toDouble(), cameraPositionState.value.lon.toDouble()))
+                mapView.overlays.clear()
+            }
+        )
     }
 }
