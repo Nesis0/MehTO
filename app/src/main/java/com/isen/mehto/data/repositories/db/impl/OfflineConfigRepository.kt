@@ -36,6 +36,6 @@ class OfflineConfigRepository(private val configDAO: ConfigDAO) : ConfigReposito
     suspend fun initConfig(){
         configDAO.initInsert("unit", "celsius")
         configDAO.initInsert("language", "fr")
-        configDAO.initInsert("geolocation", "true")
+        configDAO.initInsert("isFavoriteLocationPreferred", "true")
     }
 }
