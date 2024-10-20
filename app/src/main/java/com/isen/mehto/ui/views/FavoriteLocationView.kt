@@ -4,7 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.Icons
@@ -31,6 +31,7 @@ import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
 import com.isen.mehto.data.models.Position
+import com.isen.mehto.ui.theme.blackBorder
 import com.isen.mehto.viewmodels.FavoriteLocationViewModel
 import org.koin.androidx.compose.get
 
@@ -41,6 +42,10 @@ fun FavoriteLocationScreen() {
         factory = FavoriteLocationViewModel.ViewModelFactory(get(), get())
     )
 
+    LaunchedEffect(viewModel.isAddFavoriteView.value) {
+        viewModel.loadFavoriteLocations()
+    }
+
     if (viewModel.isAddFavoriteView.value)
         AddFavoriteLocationScreen(viewModel)
     else
@@ -49,7 +54,15 @@ fun FavoriteLocationScreen() {
 
 @Composable
 fun ManageFavoriteLocation(viewModel: FavoriteLocationViewModel) {
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(modifier = Modifier.fillMaxHeight().fillMaxWidth(0.95f)) {
+
+        Box {
+            Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+                for (location in viewModel.favoriteLocations.value) {
+                    //TODO
+                }
+            }
+        }
 
         Button (
             onClick = { viewModel.isAddFavoriteView.value = true },
