@@ -1,17 +1,16 @@
 package com.isen.mehto.data.models
 
-
 import android.health.connect.datatypes.units.Percentage
 import com.isen.mehto.R
 
 enum class WeatherConditions(val image: Int) {
     SUNNY(R.drawable.ic_sunny),
     CLOUDY(R.drawable.ic_cloudy),
-    DRIZZLY(-1), //TODO
+    DRIZZLY(R.drawable.ic_drizzly),
     RAINY(R.drawable.ic_rainy),
     STORMY(R.drawable.ic_stormy),
-    SNOWY(-1), //TODO
-    UNKNOWN(-1) //TODO
+    SNOWY(R.drawable.ic_snowy),
+    UNKNOWN(R.drawable.ic_cloudy)
 }
 
 data class Forecast(
