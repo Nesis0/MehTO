@@ -22,6 +22,19 @@ class MapsViewModel(private val mapRepository: MapRepositoryImpl) : ViewModel() 
         }
     }
 
+    fun selectMapToShow(){
+        viewModelScope.launch {
+            currentMap.value = when (selectedIndex.intValue) {
+                0 -> { mapRepository.getPrecipitationMap() }
+                1 -> { mapRepository.getTemperaturesMap() }
+                2 -> { mapRepository.getWindsMap() }
+                3 -> { mapRepository.getPressureMap() }
+                4 -> { mapRepository.getCloudMap() }
+                else -> { currentMap.value }
+            }
+        }
+    }
+
     class ViewModelFactory(
         private val mapRepository: MapRepositoryImpl
     ) : ViewModelProvider.Factory {
