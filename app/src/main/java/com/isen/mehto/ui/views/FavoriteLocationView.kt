@@ -3,8 +3,9 @@ package com.isen.mehto.ui.views
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.Icons
@@ -12,6 +13,7 @@ import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material3.Button
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.SearchBar
@@ -25,13 +27,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
 import com.isen.mehto.data.models.Position
-import com.isen.mehto.ui.theme.blackBorder
+import com.isen.mehto.ui.theme.DoubleBorderContainer
 import com.isen.mehto.viewmodels.FavoriteLocationViewModel
 import org.koin.androidx.compose.get
 
@@ -54,10 +57,18 @@ fun FavoriteLocationScreen() {
 
 @Composable
 fun ManageFavoriteLocation(viewModel: FavoriteLocationViewModel) {
-    Box(modifier = Modifier.fillMaxHeight().fillMaxWidth(0.95f)) {
+    Box(modifier = Modifier.fillMaxSize()) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Text("Favorite locations", fontSize = 24.sp)
 
-        Box {
-            Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+            Row {
+                Checkbox(
+                    checked = viewModel.isAllLocationsSelected.value,
+                    onCheckedChange = { viewModel.selectAllItems() }
+                )
+            }
+
+            DoubleBorderContainer {
                 for (location in viewModel.favoriteLocations.value) {
                     //TODO
                 }
@@ -115,7 +126,6 @@ fun AddFavoriteLocationScreen(viewModel: FavoriteLocationViewModel) {
                 }
             },
             shape = SearchBarDefaults.fullScreenShape,
-            modifier = Modifier.fillMaxWidth(0.9f),
         ) {
             Column {
                 for (location in viewModel.locations.value) {

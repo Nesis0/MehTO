@@ -1,6 +1,5 @@
 package com.isen.mehto.viewmodels
 
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -20,14 +19,24 @@ class FavoriteLocationViewModel(
     val userInput = _userInput
     private val _position = mutableStateOf(Position(0.0f,0.0f))
     val position = _position
-    private val _locations: MutableState<List<Location>> = mutableStateOf(listOf())
+    private val _locations = mutableStateOf(listOf<Location>())
     val locations = _locations
     private val _isSearchActive = mutableStateOf(false)
     val isSearchActive = _isSearchActive
     private val _isAddFavoriteView = mutableStateOf(false)
     val isAddFavoriteView = _isAddFavoriteView
-    private val _favoriteLocations: MutableState<List<FavoriteLocation>> = mutableStateOf(listOf())
+    private val _favoriteLocations = mutableStateOf(listOf<Pair<FavoriteLocation, Boolean>>())
     val favoriteLocations = _favoriteLocations
+    private val _isAllLocationsSelected = mutableStateOf(false)
+    val isAllLocationsSelected = _isAllLocationsSelected
+
+    fun selectAllItems() {
+        _isAllLocationsSelected.value = !_isAllLocationsSelected.value
+
+        _favoriteLocations.value = _favoriteLocations.value.map {
+            Pair(it.first, _isAllLocationsSelected.value)
+        }
+    }
 
     fun onSearchTextChange(text: String) {
         _userInput.value = text
@@ -70,9 +79,9 @@ class FavoriteLocationViewModel(
 
     suspend fun loadFavoriteLocations() {
         if (!isAddFavoriteView.value)
-            favoriteLocations.value = favoriteLocationRepository.getAllLocations().sortedBy {
-                it.preference_index
-            }
+            _favoriteLocations.value = favoriteLocationRepository.getAllLocations()
+                .sortedBy { it.preference_index }
+                .map { Pair(it, false) }
     }
 
     suspend fun getLocationInfo(displayName: String): FavoriteLocation? {
