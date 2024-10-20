@@ -1,6 +1,5 @@
 package com.isen.mehto.viewmodels
 
-import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -114,20 +113,8 @@ class FavoriteLocationViewModel(
                 }
     }
 
-    suspend fun getLocationInfo(displayName: String): FavoriteLocation? {
-        return favoriteLocationRepository.readByLocationName(displayName)
-    }
-
-    suspend fun updateLocation(location: FavoriteLocation) {
-        favoriteLocationRepository.update(location)
-    }
-
-    suspend fun deleteLocation(location: FavoriteLocation) {
+    private suspend fun deleteLocation(location: FavoriteLocation) {
         favoriteLocationRepository.delete(location)
-    }
-
-    suspend fun clearLocationList() {
-        favoriteLocationRepository.clearLocationList()
     }
 
     class ViewModelFactory(
