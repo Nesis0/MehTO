@@ -11,7 +11,7 @@ import com.isen.mehto.data.repositories.api.map.impl.MapRepositoryImpl
 import kotlinx.coroutines.launch
 
 class MapsViewModel(private val mapRepository: MapRepositoryImpl) : ViewModel() {
-    var items = listOf("Precipitations", "Temperatures", "Winds", "Pressures", "Air Quality")
+    var items = listOf("Precipitations", "Temperatures", "Winds", "Pressures", "Clouds")
     val expanded = mutableStateOf(false)
     val selectedIndex = mutableIntStateOf(0)
     private val _currentMap: MutableState<Bitmap?> =  mutableStateOf(null)
