@@ -16,4 +16,20 @@ class MapsViewModel() : ViewModel() {
 
         }
     }
+
+
+
+    class ViewModelFactory(
+        private val mapRepository: MapRepositoryImpl
+    ) : ViewModelProvider.Factory {
+        @Suppress("UNCHECKED_CAST")
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+            if (modelClass.isAssignableFrom(MapsViewModel::class.java)) {
+                return MapsViewModel(
+                    mapRepository = mapRepository
+                ) as T
+            }
+            throw IllegalArgumentException("Unknown ViewModel class")
+        }
+    }
 }
