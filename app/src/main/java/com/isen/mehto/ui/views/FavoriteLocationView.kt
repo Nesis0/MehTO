@@ -1,6 +1,7 @@
 package com.isen.mehto.ui.views
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.Close
+import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
@@ -61,10 +63,18 @@ fun ManageFavoriteLocation(viewModel: FavoriteLocationViewModel) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text("Favorite locations", fontSize = 24.sp)
 
-            Row {
+            Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {
                 Checkbox(
                     checked = viewModel.isAllLocationsSelected.value,
                     onCheckedChange = { viewModel.selectAllItems() }
+                )
+
+                TextButton(
+                    onClick = { viewModel.deleteSelectedLocations() },
+                    content = { Icon(
+                        imageVector = Icons.Rounded.Delete,
+                        contentDescription = "Delete Icon"
+                    ) },
                 )
             }
 

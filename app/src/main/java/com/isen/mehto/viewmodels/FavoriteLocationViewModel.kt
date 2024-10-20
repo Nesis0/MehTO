@@ -38,6 +38,16 @@ class FavoriteLocationViewModel(
         }
     }
 
+    fun deleteSelectedLocations() {
+        viewModelScope.launch {
+            _favoriteLocations.value
+                .filter { it.second }
+                .forEach { deleteLocation(it.first) }
+
+            loadFavoriteLocations()
+        }
+    }
+
     fun onSearchTextChange(text: String) {
         _userInput.value = text
         viewModelScope.launch {
