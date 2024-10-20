@@ -1,17 +1,26 @@
 package com.isen.mehto.viewmodels
 
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.isen.mehto.data.repositories.db.impl.OfflineConfigRepository
 import com.isen.mehto.data.entity.Config
+import kotlinx.coroutines.launch
 
 class SettingsViewModel(private val configRepository: OfflineConfigRepository) : ViewModel() {
-    suspend fun saveSetting(config: Config){
-        configRepository.insert(config)
+    private val _settings = mutableStateOf(listOf<Config>())
+    val settings = _settings
+
+    init {
+        viewModelScope.launch {
+            configRepository.initConfig()
+            _settings.value = configRepository.getAllConfigs()
+        }
     }
 
-    suspend fun getAllConfigs(){
-        configRepository.getAllConfigs()
+    suspend fun saveSetting(config: Config){
+        configRepository.insert(config)
     }
 
     suspend fun getConfig(key: String): String?{
