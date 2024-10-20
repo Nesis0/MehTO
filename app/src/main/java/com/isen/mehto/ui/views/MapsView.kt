@@ -99,8 +99,8 @@ fun MapsScreen() {
                 if (index != viewModel.items.size - 1) DashedDivider()
             }
         }
-        ImageLoader(viewModel.currentMap.value)
     }
+    ImageLoader(viewModel.currentMap.value)
 }
 
 @Composable
