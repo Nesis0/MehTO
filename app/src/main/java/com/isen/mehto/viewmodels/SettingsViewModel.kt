@@ -21,9 +21,13 @@ class SettingsViewModel(private val configRepository: OfflineConfigRepository) :
     init {
         viewModelScope.launch {
             configRepository.initConfig()
-            _settings.value = configRepository.getAllConfigs().map {
-                ConfigItem(mutableStateOf(it), mutableStateOf(false))
-            }
+            loadConfigs()
+        }
+    }
+
+    private suspend fun loadConfigs() {
+        _settings.value = configRepository.getAllConfigs().map {
+            ConfigItem(mutableStateOf(it), mutableStateOf(false))
         }
     }
 
@@ -36,8 +40,12 @@ class SettingsViewModel(private val configRepository: OfflineConfigRepository) :
         }
     }
 
-    suspend fun clearConfig(){
-        configRepository.clearConfig()
+    fun resetSettings(){
+        viewModelScope.launch {
+            configRepository.clearConfig()
+            configRepository.initConfig()
+            loadConfigs()
+        }
     }
 
     class ViewModelFactory(

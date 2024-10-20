@@ -13,7 +13,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.KeyboardArrowLeft
+import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material.icons.rounded.KeyboardArrowDown
+import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.HorizontalDivider
@@ -68,6 +70,19 @@ fun SettingsScreen() {
                     HorizontalDivider(color = Color.Black, thickness = 2.dp)
             }
         }
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+        Button (
+            onClick = { viewModel.resetSettings() },
+            content = {
+                Text("Reset to factory defaults")
+                Icon(
+                    imageVector = Icons.Rounded.Delete,
+                    contentDescription = "Add Icon"
+                )
+            },
+        )
     }
 }
 
