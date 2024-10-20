@@ -1,15 +1,24 @@
 package com.isen.mehto.viewmodels
 
+import android.util.Log
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.isen.mehto.data.repositories.db.impl.OfflineFavoriteLocationRepository
 import com.isen.mehto.data.entity.FavoriteLocation
+import com.isen.mehto.data.models.Forecast
 import com.isen.mehto.data.models.Location
 import com.isen.mehto.data.models.Position
 import com.isen.mehto.data.repositories.api.ForecastRepository
 import kotlinx.coroutines.launch
+
+data class LocationItem(
+    val location: FavoriteLocation,
+    val isSelected: MutableState<Boolean>,
+    val forecast: Forecast,
+)
 
 class FavoriteLocationViewModel(
     private val favoriteLocationRepository: OfflineFavoriteLocationRepository,
@@ -25,24 +34,32 @@ class FavoriteLocationViewModel(
     val isSearchActive = _isSearchActive
     private val _isAddFavoriteView = mutableStateOf(false)
     val isAddFavoriteView = _isAddFavoriteView
-    private val _favoriteLocations = mutableStateOf(listOf<Pair<FavoriteLocation, Boolean>>())
+    private val _favoriteLocations = mutableStateOf(listOf<LocationItem>())
     val favoriteLocations = _favoriteLocations
-    private val _isAllLocationsSelected = mutableStateOf(false)
-    val isAllLocationsSelected = _isAllLocationsSelected
 
     fun selectAllItems() {
-        _isAllLocationsSelected.value = !_isAllLocationsSelected.value
+        val checked = isAllLocationsSelected()
 
         _favoriteLocations.value = _favoriteLocations.value.map {
-            Pair(it.first, _isAllLocationsSelected.value)
+            it.isSelected.value = !checked
+            it
         }
+    }
+
+    fun toggleSelf(checked: Boolean, index: Int) {
+        _favoriteLocations.value[index].isSelected.value = checked
+    }
+
+    fun isAllLocationsSelected(): Boolean {
+        if (_favoriteLocations.value.isEmpty()) return false
+        return _favoriteLocations.value.all { it.isSelected.value }
     }
 
     fun deleteSelectedLocations() {
         viewModelScope.launch {
             _favoriteLocations.value
-                .filter { it.second }
-                .forEach { deleteLocation(it.first) }
+                .filter { it.isSelected.value }
+                .forEach { deleteLocation(it.location) }
 
             loadFavoriteLocations()
         }
@@ -91,7 +108,10 @@ class FavoriteLocationViewModel(
         if (!isAddFavoriteView.value)
             _favoriteLocations.value = favoriteLocationRepository.getAllLocations()
                 .sortedBy { it.preference_index }
-                .map { Pair(it, false) }
+                .map {
+                    val pos = Position(it.longitude, it.latitude)
+                    LocationItem(it, mutableStateOf(false), forecastRepository.getTodayWeather(pos))
+                }
     }
 
     suspend fun getLocationInfo(displayName: String): FavoriteLocation? {

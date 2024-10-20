@@ -1,14 +1,17 @@
 package com.isen.mehto.ui.views
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.Close
@@ -28,6 +31,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -35,10 +39,13 @@ import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
+import com.isen.mehto.R
 import com.isen.mehto.data.models.Position
+import com.isen.mehto.ui.theme.DashedDivider
 import com.isen.mehto.ui.theme.DoubleBorderContainer
 import com.isen.mehto.viewmodels.FavoriteLocationViewModel
 import org.koin.androidx.compose.get
+import kotlin.math.roundToInt
 
 
 @Composable
@@ -60,12 +67,15 @@ fun FavoriteLocationScreen() {
 @Composable
 fun ManageFavoriteLocation(viewModel: FavoriteLocationViewModel) {
     Box(modifier = Modifier.fillMaxSize()) {
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier
+        ) {
             Text("Favorite locations", fontSize = 24.sp)
 
             Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {
                 Checkbox(
-                    checked = viewModel.isAllLocationsSelected.value,
+                    checked = viewModel.isAllLocationsSelected(),
                     onCheckedChange = { viewModel.selectAllItems() }
                 )
 
@@ -78,9 +88,43 @@ fun ManageFavoriteLocation(viewModel: FavoriteLocationViewModel) {
                 )
             }
 
-            DoubleBorderContainer {
-                for (location in viewModel.favoriteLocations.value) {
-                    //TODO
+            DoubleBorderContainer(Modifier.fillMaxHeight(1f)) {
+                viewModel.favoriteLocations.value.forEachIndexed { index, item ->
+                    Box(modifier = Modifier.height(50.dp).fillMaxWidth()) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier.align(Alignment.CenterStart)
+                        ) {
+                            Checkbox(
+                                checked = item.isSelected.value,
+                                onCheckedChange = { checked -> viewModel.toggleSelf(checked, index) }
+                            )
+                            Text(item.location.display_name)
+                        }
+
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier.align(Alignment.CenterEnd)
+                        ) {
+                            Text("${String.format("%.2f", item.forecast.temperature.toCelsius())} °C")
+                            Image(
+                                modifier = Modifier.fillMaxHeight(0.7f),
+                                painter = painterResource(id = item.forecast.weatherConditions.image),
+                                contentDescription = "Weather Condition Icon",
+                            )
+
+                            Spacer(modifier = Modifier.width(10.dp))
+
+                            Text("${item.forecast.humidity.value.roundToInt()}%")
+                            Image(
+                                modifier = Modifier.fillMaxHeight(0.7f),
+                                painter = painterResource(id = R.drawable.ic_humidity),
+                                contentDescription = "Humidity Icon",
+                            )
+                        }
+                    }
+
+                    DashedDivider()
                 }
             }
         }

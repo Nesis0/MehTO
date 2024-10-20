@@ -29,13 +29,17 @@ fun DashedDivider() {
 }
 
 @Composable
-fun DoubleBorderContainer(content: @Composable() () -> Unit) {
-    val blackBorder = Modifier
+fun DoubleBorderContainer(
+    modifier: Modifier = Modifier,
+    horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally,
+    content: @Composable() () -> Unit
+) {
+    val blackBorder = modifier
         .border(width = 2.dp, color = Color.Black, shape = RectangleShape)
         .padding(5.dp)
 
     Box(modifier = blackBorder.fillMaxWidth()) {
-        Column(modifier = blackBorder.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+        Column(modifier = blackBorder.fillMaxWidth(), horizontalAlignment = horizontalAlignment) {
             content()
         }
     }
