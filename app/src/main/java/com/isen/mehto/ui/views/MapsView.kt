@@ -1,6 +1,8 @@
 package com.isen.mehto.ui.views
 
+import android.graphics.Bitmap
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -24,6 +26,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.isen.mehto.ui.theme.DashedDivider
@@ -93,5 +96,12 @@ fun MapsScreen() {
                 if (index != viewModel.items.size - 1) DashedDivider()
             }
         }
+        ImageLoader(viewModel.currentMap.value)
     }
+}
+
+@Composable
+fun ImageLoader(bitmap: Bitmap?) {
+    if (bitmap != null)
+        Image(bitmap = bitmap.asImageBitmap(), contentDescription = null)
 }
