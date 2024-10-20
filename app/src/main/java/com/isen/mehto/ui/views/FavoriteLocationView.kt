@@ -1,13 +1,17 @@
 package com.isen.mehto.ui.views
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.Search
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.SearchBar
@@ -33,15 +37,34 @@ import org.koin.androidx.compose.get
 
 @Composable
 fun FavoriteLocationScreen() {
-    AddFavoriteLocationScreen()
+    val viewModel = viewModel<FavoriteLocationViewModel>(
+        factory = FavoriteLocationViewModel.ViewModelFactory(get(), get())
+    )
+
+    if (viewModel.isAddFavoriteView.value)
+        AddFavoriteLocationScreen(viewModel)
+    else
+        ManageFavoriteLocation(viewModel)
+}
+
+@Composable
+fun ManageFavoriteLocation(viewModel: FavoriteLocationViewModel) {
+    Box(modifier = Modifier.fillMaxSize()) {
+
+        Button (
+            onClick = { viewModel.isAddFavoriteView.value = true },
+            content = { Icon(
+                imageVector = Icons.Rounded.Add,
+                contentDescription = "Add Icon"
+            ) },
+            modifier = Modifier.align(Alignment.BottomEnd),
+        )
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddFavoriteLocationScreen() {
-    val viewModel = viewModel<FavoriteLocationViewModel>(
-        factory = FavoriteLocationViewModel.ViewModelFactory(get(), get())
-    )
+fun AddFavoriteLocationScreen(viewModel: FavoriteLocationViewModel) {
     val cameraPositionState = rememberCameraPositionState()
 
     LaunchedEffect(cameraPositionState.position.target) {

@@ -19,17 +19,13 @@ class FavoriteLocationViewModel(
     private val _userInput = mutableStateOf(String())
     val userInput = _userInput
     private val _position = mutableStateOf(Position(0.0f,0.0f))
-    var position = _position
+    val position = _position
     private val _locations: MutableState<List<Location>> = mutableStateOf(listOf())
     val locations = _locations
     private val _isSearchActive = mutableStateOf(false)
     val isSearchActive = _isSearchActive
-
-    init {
-        viewModelScope.launch {
-
-        }
-    }
+    private val _isAddFavoriteView = mutableStateOf(false)
+    val isAddFavoriteView = _isAddFavoriteView
 
     fun onSearchTextChange(text: String) {
         _userInput.value = text
@@ -66,6 +62,8 @@ class FavoriteLocationViewModel(
                 )
             )
         }
+
+        _isAddFavoriteView.value = false
     }
 
     suspend fun getLocationInfo(displayName: String): FavoriteLocation? {
