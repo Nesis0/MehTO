@@ -40,6 +40,7 @@ import androidx.navigation.compose.rememberNavController
 import com.isen.mehto.ui.views.ForecastScreen
 import com.isen.mehto.ui.views.SettingsScreen
 import com.isen.mehto.ui.theme.DashedDivider
+import com.isen.mehto.ui.views.FavoriteLocationScreen
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -47,6 +48,7 @@ data class DrawerMenu(val displayName: String, val route: String, val screen: @C
 
 val menuItems: Array<DrawerMenu> = arrayOf (
     DrawerMenu("Home", "weather") { ForecastScreen() },
+    DrawerMenu("Favorites", "favorites") { FavoriteLocationScreen() },
     DrawerMenu("Settings", "settings") { SettingsScreen() },
 )
 
@@ -129,7 +131,9 @@ fun Navigation(
             ModalDrawerSheet {
                 DrawerContent(drawerState, menuItems) { route ->
                     coroutineScope.launch { drawerState.close() }
-                    navController.navigate(route)
+                    navController.navigate(route){
+                        popUpTo(0)
+                    }
                 }
             }
         }
@@ -144,7 +148,11 @@ fun Navigation(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-                NavHost(navController = navController, startDestination = menuItems[0].route) {
+                NavHost(
+                    navController = navController,
+                    startDestination = menuItems[0].route,
+                    modifier = Modifier.fillMaxSize(0.95f)
+                ) {
                     menuItems.forEach { item ->
                         composable(item.route) { item.screen() }
                     }
