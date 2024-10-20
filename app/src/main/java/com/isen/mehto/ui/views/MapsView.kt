@@ -28,10 +28,13 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.isen.mehto.ui.theme.DashedDivider
 import com.isen.mehto.viewmodels.MapsViewModel
+import org.koin.androidx.compose.get
 
 @Composable
 fun MapsScreen() {
-    val viewModel = viewModel<MapsViewModel>()
+    val viewModel = viewModel<MapsViewModel>(
+        factory = MapsViewModel.ViewModelFactory(get())
+    )
     val maxWidthRatio = 0.9f
 
     Column(
