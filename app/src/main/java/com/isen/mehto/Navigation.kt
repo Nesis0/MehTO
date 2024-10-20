@@ -41,6 +41,7 @@ import com.isen.mehto.ui.views.ForecastScreen
 import com.isen.mehto.ui.views.SettingsScreen
 import com.isen.mehto.ui.theme.DashedDivider
 import com.isen.mehto.ui.views.FavoriteLocationScreen
+import com.isen.mehto.ui.views.MapsScreen
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -49,6 +50,7 @@ data class DrawerMenu(val displayName: String, val route: String, val screen: @C
 val menuItems: Array<DrawerMenu> = arrayOf (
     DrawerMenu("Home", "weather") { ForecastScreen() },
     DrawerMenu("Favorites", "favorites") { FavoriteLocationScreen() },
+    DrawerMenu("Maps", "maps") { MapsScreen() },
     DrawerMenu("Settings", "settings") { SettingsScreen() },
 )
 
