@@ -5,12 +5,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.isen.mehto.data.entity.ConfigType
 import com.isen.mehto.data.repositories.db.impl.OfflineFavoriteLocationRepository
 import com.isen.mehto.data.entity.FavoriteLocation
 import com.isen.mehto.data.models.Forecast
 import com.isen.mehto.data.models.Location
 import com.isen.mehto.data.models.Position
+import com.isen.mehto.data.models.TemperatureUnit
 import com.isen.mehto.data.repositories.api.ForecastRepository
+import com.isen.mehto.data.repositories.db.impl.OfflineConfigRepository
 import kotlinx.coroutines.launch
 
 data class LocationItem(
@@ -22,6 +25,7 @@ data class LocationItem(
 class FavoriteLocationViewModel(
     private val favoriteLocationRepository: OfflineFavoriteLocationRepository,
     private val forecastRepository: ForecastRepository,
+    private val configRepository: OfflineConfigRepository,
 ) : ViewModel() {
     private val _userInput = mutableStateOf(String())
     val userInput = _userInput
@@ -35,6 +39,16 @@ class FavoriteLocationViewModel(
     val isAddFavoriteView = _isAddFavoriteView
     private val _favoriteLocations = mutableStateOf(listOf<LocationItem>())
     val favoriteLocations = _favoriteLocations
+    private val _temperatureUnit: MutableState<TemperatureUnit> = mutableStateOf(TemperatureUnit.CELSIUS)
+    val temperatureUnit = _temperatureUnit
+
+    init {
+        viewModelScope.launch {
+            temperatureUnit.value = TemperatureUnit.valueOf(
+                configRepository.read(ConfigType.UNIT.toString()) ?: ""
+            )
+        }
+    }
 
     fun selectAllItems() {
         val checked = isAllLocationsSelected()
@@ -119,6 +133,7 @@ class FavoriteLocationViewModel(
     class ViewModelFactory(
         private val favoriteLocationRepository: OfflineFavoriteLocationRepository,
         private val forecastRepository: ForecastRepository,
+        private val configRepository: OfflineConfigRepository,
     ) : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -126,6 +141,7 @@ class FavoriteLocationViewModel(
                 return FavoriteLocationViewModel(
                     favoriteLocationRepository = favoriteLocationRepository,
                     forecastRepository = forecastRepository,
+                    configRepository = configRepository,
                 ) as T
             }
             throw IllegalArgumentException("Unknown ViewModel class")

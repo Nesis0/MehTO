@@ -51,7 +51,7 @@ import kotlin.math.roundToInt
 @Composable
 fun FavoriteLocationScreen() {
     val viewModel = viewModel<FavoriteLocationViewModel>(
-        factory = FavoriteLocationViewModel.ViewModelFactory(get(), get())
+        factory = FavoriteLocationViewModel.ViewModelFactory(get(), get(), get())
     )
 
     LaunchedEffect(viewModel.isAddFavoriteView.value) {
@@ -106,7 +106,7 @@ fun ManageFavoriteLocation(viewModel: FavoriteLocationViewModel) {
                             verticalAlignment = Alignment.CenterVertically,
                             modifier = Modifier.align(Alignment.CenterEnd)
                         ) {
-                            Text("${String.format("%.2f", item.forecast.temperature.toCelsius())} °C")
+                            Text(item.forecast.temperature.format(viewModel.temperatureUnit.value))
                             Image(
                                 modifier = Modifier.fillMaxHeight(0.7f),
                                 painter = painterResource(id = item.forecast.weatherConditions.image),

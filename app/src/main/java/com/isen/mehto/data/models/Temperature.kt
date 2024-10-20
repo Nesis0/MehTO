@@ -1,5 +1,7 @@
 package com.isen.mehto.data.models
 
+import android.annotation.SuppressLint
+
 enum class TemperatureUnit {
     KELVIN,
     CELSIUS,
@@ -33,5 +35,22 @@ class Temperature(private val value: Double, private val unit: TemperatureUnit){
 
     override fun toString(): String {
         return "${this.value}"
+    }
+
+    @SuppressLint("DefaultLocale")
+    fun format(unit: TemperatureUnit): String {
+        val value = when (unit) {
+            TemperatureUnit.KELVIN -> toKelvin()
+            TemperatureUnit.CELSIUS -> toCelsius()
+            TemperatureUnit.FAHRENHEIT -> toFahrenheit()
+        }
+
+        val sign = when (unit) {
+            TemperatureUnit.KELVIN -> "K"
+            TemperatureUnit.CELSIUS -> "°C"
+            TemperatureUnit.FAHRENHEIT -> "°F"
+        }
+
+        return "${String.format("%.2f", value)} $sign"
     }
 }

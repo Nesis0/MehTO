@@ -11,6 +11,7 @@ import com.isen.mehto.data.entity.FavoriteLocation
 import com.isen.mehto.data.repositories.db.impl.OfflineConfigRepository
 import com.isen.mehto.data.models.Position
 import com.isen.mehto.data.models.Forecast
+import com.isen.mehto.data.models.TemperatureUnit
 import com.isen.mehto.data.repositories.api.ForecastRepository
 import com.isen.mehto.data.repositories.db.impl.OfflineFavoriteLocationRepository
 import com.isen.mehto.data.repositories.geolocation.impl.GeolocationRepositoryImpl
@@ -26,6 +27,8 @@ class ForecastViewModel(
     val currentWeather = _currentForecast
     private val _forecastWeek: MutableState<List<Forecast>> = mutableStateOf(listOf())
     val weatherWeek = _forecastWeek
+    private val _temperatureUnit: MutableState<TemperatureUnit> = mutableStateOf(TemperatureUnit.CELSIUS)
+    val temperatureUnit = _temperatureUnit
 
     init {
         viewModelScope.launch {
@@ -33,6 +36,7 @@ class ForecastViewModel(
             val position: Position = getEffectivePosition()
             _currentForecast.value = forecastRepository.getTodayWeather(position)
             _forecastWeek.value = forecastRepository.getForecast(position)
+            temperatureUnit.value = TemperatureUnit.valueOf(configRepository.read(ConfigType.UNIT.toString()) ?: "")
         }
     }
 

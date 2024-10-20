@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.isen.mehto.R
 import com.isen.mehto.data.models.Forecast
+import com.isen.mehto.data.models.TemperatureUnit
 import com.isen.mehto.ui.theme.DoubleBorderContainer
 import com.isen.mehto.viewmodels.ForecastViewModel
 import org.koin.androidx.compose.get
@@ -61,7 +62,7 @@ private fun CurrentForecast(viewModel: ForecastViewModel) {
                 painter = painterResource(id = it.weatherConditions.image),
                 contentDescription = "Weather Icon",
             )
-            Text(fontSize = 32.sp, text = "${String.format("%.2f", it.temperature.toCelsius())} °C")
+            Text(fontSize = 32.sp, text = it.temperature.format(viewModel.temperatureUnit.value))
             Text(fontSize = 24.sp, text = it.city)
         }
     }
@@ -72,7 +73,7 @@ private fun ForecastWeek(viewModel: ForecastViewModel) {
     DoubleBorderContainer {
         viewModel.weatherWeek.value.forEachIndexed { index, weather ->
             weather.let {
-                ForecastItem(it)
+                ForecastItem(it, viewModel.temperatureUnit.value)
                 if (viewModel.weatherWeek.value.size != index + 1) HorizontalDivider(color = Color.Black)
             }
         }
@@ -81,7 +82,7 @@ private fun ForecastWeek(viewModel: ForecastViewModel) {
 
 @SuppressLint("DefaultLocale")
 @Composable
-private fun ForecastItem(it: Forecast) {
+private fun ForecastItem(it: Forecast, unit: TemperatureUnit) {
     Row(
         Modifier
             .height(50.dp)
@@ -98,7 +99,7 @@ private fun ForecastItem(it: Forecast) {
             Spacer(modifier = Modifier.width(20.dp))
             Text(
                 fontSize = 26.sp,
-                text = "${String.format("%.2f", it.temperature.toCelsius())} °C"
+                text = it.temperature.format(unit)
             )
         }
 
