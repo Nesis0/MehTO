@@ -3,6 +3,7 @@ package com.isen.mehto.data.repositories.db.impl
 import com.isen.mehto.data.entity.Config
 import com.isen.mehto.data.entity.ConfigDAO
 import com.isen.mehto.data.entity.ConfigType
+import com.isen.mehto.data.models.TemperatureUnit
 import com.isen.mehto.data.repositories.db.ConfigRepository
 
 class OfflineConfigRepository(private val configDAO: ConfigDAO) : ConfigRepository {
@@ -35,7 +36,7 @@ class OfflineConfigRepository(private val configDAO: ConfigDAO) : ConfigReposito
     }
 
     suspend fun initConfig(){
-        configDAO.initInsert(ConfigType.UNIT, "celsius")
+        configDAO.initInsert(ConfigType.UNIT, TemperatureUnit.CELSIUS.toString())
         configDAO.initInsert(ConfigType.ENABLE_GEOLOCATION, "true")
     }
 }
