@@ -1,12 +1,14 @@
 package com.isen.mehto.data.forecast.api.map
 
+import okhttp3.ResponseBody
+
 class MapServiceImpl: MapService {
     override suspend fun getPrecipitationMap(
         zoomLevel: String?,
         xTiles: String?,
         yTiles: String?,
         apiKey: String?
-    ) {
+    ): ResponseBody {
         return MapApi.service.getPrecipitationMap()
     }
 
@@ -15,7 +17,7 @@ class MapServiceImpl: MapService {
         xTiles: String?,
         yTiles: String?,
         apiKey: String?
-    ) {
+    ): ResponseBody {
         return MapApi.service.getTemperaturesMap()
     }
 
@@ -24,7 +26,7 @@ class MapServiceImpl: MapService {
         xTiles: String?,
         yTiles: String?,
         apiKey: String?
-    ) {
+    ): ResponseBody {
         return MapApi.service.getPressureMap()
     }
 
@@ -33,7 +35,7 @@ class MapServiceImpl: MapService {
         xTiles: String?,
         yTiles: String?,
         apiKey: String?
-    ) {
+    ): ResponseBody {
         return MapApi.service.getWindsMap()
     }
 
@@ -42,7 +44,7 @@ class MapServiceImpl: MapService {
         xTiles: String?,
         yTiles: String?,
         apiKey: String?
-    ) {
+    ): ResponseBody {
         return MapApi.service.getCloudMap()
     }
 
