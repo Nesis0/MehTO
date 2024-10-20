@@ -54,15 +54,18 @@ class FavoriteLocationViewModel(
     }
 
     fun saveLocation(location: Location) {
-        //TODO
-    }
-
-    suspend fun getAllLocations(): List<FavoriteLocation> {
-        return favoriteLocationRepository.getAllLocations()
-    }
-
-    suspend fun insertLocation(location: FavoriteLocation) {
-        favoriteLocationRepository.insert(location)
+        viewModelScope.launch {
+            val lastIndex = favoriteLocationRepository.getAllLocations().size + 1
+            favoriteLocationRepository.insert(
+                FavoriteLocation(
+                    lastIndex,
+                    lastIndex,
+                    location.name,
+                    location.lat.toFloat(),
+                    location.lon.toFloat(),
+                )
+            )
+        }
     }
 
     suspend fun getLocationInfo(displayName: String): FavoriteLocation? {
