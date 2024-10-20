@@ -60,8 +60,8 @@ class ForecastViewModel(
     }
 
     private suspend fun getPreferredLocationPosition(): Position {
-        val preferredLocation: FavoriteLocation = favoriteLocationRepository.readByIndex("1")
-        return Position(preferredLocation.latitude, preferredLocation.longitude)
+        val preferredLocation: List<FavoriteLocation> = favoriteLocationRepository.getAllLocations().sortedBy { it.preference_index }
+        return Position(preferredLocation[0].latitude, preferredLocation[0].longitude)
     }
 
     class ViewModelFactory(
