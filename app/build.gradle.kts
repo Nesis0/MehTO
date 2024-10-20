@@ -51,6 +51,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.osmdroid.android)
     implementation(libs.retrofit2.retrofit)
     implementation(libs.converter.gson)
     implementation(libs.androidx.room.runtime)
