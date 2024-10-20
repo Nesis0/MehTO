@@ -7,10 +7,14 @@ import androidx.room.PrimaryKey
 @Entity
 data class Config(
     @PrimaryKey
-    @ColumnInfo(name = "name")
-    val name: String,
+    @ColumnInfo(name = "type")
+    val type: ConfigType,
 
     @ColumnInfo(name = "value")
     val value: String
 )
 
+enum class ConfigType(val displayName: String) {
+    UNIT("Temperature unit"),
+    ENABLE_GEOLOCATION("Geolocation"),
+}

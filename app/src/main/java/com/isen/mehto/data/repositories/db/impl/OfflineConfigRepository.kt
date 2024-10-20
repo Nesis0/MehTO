@@ -2,6 +2,8 @@ package com.isen.mehto.data.repositories.db.impl
 
 import com.isen.mehto.data.entity.Config
 import com.isen.mehto.data.entity.ConfigDAO
+import com.isen.mehto.data.entity.ConfigType
+import com.isen.mehto.data.models.TemperatureUnit
 import com.isen.mehto.data.repositories.db.ConfigRepository
 
 class OfflineConfigRepository(private val configDAO: ConfigDAO) : ConfigRepository {
@@ -14,7 +16,7 @@ class OfflineConfigRepository(private val configDAO: ConfigDAO) : ConfigReposito
     }
 
     override suspend fun initInsert(config: Config){
-        return configDAO.initInsert(config.name, config.value)
+        return configDAO.initInsert(config.type, config.value)
     }
 
     override suspend fun read(key: String): String? {
@@ -34,8 +36,7 @@ class OfflineConfigRepository(private val configDAO: ConfigDAO) : ConfigReposito
     }
 
     suspend fun initConfig(){
-        configDAO.initInsert("unit", "celsius")
-        configDAO.initInsert("language", "fr")
-        configDAO.initInsert("isFavoriteLocationPreferred", "true")
+        configDAO.initInsert(ConfigType.UNIT, TemperatureUnit.CELSIUS.toString())
+        configDAO.initInsert(ConfigType.ENABLE_GEOLOCATION, "true")
     }
 }

@@ -9,6 +9,7 @@ import com.isen.mehto.data.entity.FavoriteLocation
 import com.isen.mehto.data.entity.FavoriteLocationDAO
 import com.isen.mehto.data.entity.Config
 import com.isen.mehto.data.entity.ConfigDAO
+import com.isen.mehto.data.entity.ConfigType
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -39,9 +40,8 @@ abstract class LocalDatabase : RoomDatabase() {
 
           fun populateDatabase(configDAO: ConfigDAO) {
                CoroutineScope(Dispatchers.IO).launch {
-                    configDAO.insert(Config("unit", "Celsius"))
-                    configDAO.insert(Config("Language", "FR"))
-                    configDAO.insert(Config("Location", "true"))
+                    configDAO.insert(Config(ConfigType.UNIT, "Celsius"))
+                    configDAO.insert(Config(ConfigType.ENABLE_GEOLOCATION, "true"))
                }
           }
      }

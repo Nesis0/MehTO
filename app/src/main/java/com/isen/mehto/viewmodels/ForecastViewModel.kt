@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.isen.mehto.data.entity.ConfigType
 import com.isen.mehto.data.entity.FavoriteLocation
 import com.isen.mehto.data.repositories.db.impl.OfflineConfigRepository
 import com.isen.mehto.data.models.Position
@@ -36,7 +37,7 @@ class ForecastViewModel(
     }
 
     private suspend fun getEffectivePosition(): Position {
-        val isFavoritePreferred: Boolean = configRepository.read("isFavoriteLocationPreferred").toBoolean()
+        val isFavoritePreferred: Boolean = !configRepository.read(ConfigType.ENABLE_GEOLOCATION.toString()).toBoolean()
         val isFavoriteEmpty = favoriteLocationRepository.getAllLocations().isEmpty()
 
         if (isFavoritePreferred && !isFavoriteEmpty)
