@@ -131,7 +131,9 @@ fun Navigation(
             ModalDrawerSheet {
                 DrawerContent(drawerState, menuItems) { route ->
                     coroutineScope.launch { drawerState.close() }
-                    navController.navigate(route)
+                    navController.navigate(route){
+                        popUpTo(0)
+                    }
                 }
             }
         }
