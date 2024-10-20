@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.isen.mehto.data.entity.ConfigType
+import com.isen.mehto.data.models.TemperatureUnit
 import com.isen.mehto.viewmodels.ConfigItem
 import com.isen.mehto.viewmodels.SettingsViewModel
 import org.koin.androidx.compose.get
@@ -59,7 +60,7 @@ fun SettingsScreen() {
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
-                    Text(configItem.config.type.displayName)
+                    Text(configItem.config.value.type.displayName)
 
                     ConfigValueSelector(configItem)
                 }
@@ -74,7 +75,7 @@ fun SettingsScreen() {
 @Composable
 fun ConfigValueSelector(configItem: ConfigItem) {
     Box {
-        when (configItem.config.type) {
+        when (configItem.config.value.type) {
             ConfigType.UNIT -> UnitPicker(configItem)
 
             ConfigType.ENABLE_GEOLOCATION -> {
@@ -90,7 +91,7 @@ private fun BoxScope.UnitPicker(configItem: ConfigItem) {
         .clickable { configItem.isExpanded.value = true }
         .align(Alignment.CenterEnd)
     ) {
-        Text(text = configItem.config.value)
+        Text(text = configItem.config.value.value)
 
         if (configItem.isExpanded.value) {
             Icon(
@@ -109,14 +110,20 @@ private fun BoxScope.UnitPicker(configItem: ConfigItem) {
         onDismissRequest = { configItem.isExpanded.value = false },
         modifier = Modifier.align(Alignment.CenterEnd)
     ) {
-        TemperatureUnitItem(configItem.config.value, configItem)
+        TemperatureUnit.entries.forEach {
+            TemperatureUnitItem(it.toString(), configItem)
+        }
     }
 }
 
 @Composable
 private fun TemperatureUnitItem(value: String, configItem: ConfigItem) {
+    val viewModel = viewModel<SettingsViewModel>(
+        factory = SettingsViewModel.ViewModelFactory(get())
+    )
+
     DropdownMenuItem(
         text = { Text(value) },
-        onClick = { configItem.isExpanded.value = false }
+        onClick = { viewModel.saveSetting(value, configItem) }
     )
 }

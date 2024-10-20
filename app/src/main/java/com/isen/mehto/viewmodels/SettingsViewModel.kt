@@ -10,7 +10,7 @@ import com.isen.mehto.data.entity.Config
 import kotlinx.coroutines.launch
 
 data class ConfigItem (
-    val config: Config,
+    val config: MutableState<Config>,
     val isExpanded: MutableState<Boolean>,
 )
 
@@ -22,25 +22,18 @@ class SettingsViewModel(private val configRepository: OfflineConfigRepository) :
         viewModelScope.launch {
             configRepository.initConfig()
             _settings.value = configRepository.getAllConfigs().map {
-                ConfigItem(it, mutableStateOf(false))
+                ConfigItem(mutableStateOf(it), mutableStateOf(false))
             }
         }
     }
 
-    suspend fun saveSetting(config: Config){
-        configRepository.insert(config)
-    }
+    fun saveSetting(value: String, configItem: ConfigItem){
+        configItem.isExpanded.value = false
+        configItem.config.value = Config(configItem.config.value.type, value)
 
-    suspend fun getConfig(key: String): String?{
-        return configRepository.read(key)
-    }
-
-    suspend fun updateConfig(config: Config){
-        configRepository.update(config)
-    }
-
-    suspend fun deleteConfig(config: Config){
-        configRepository.delete(config)
+        viewModelScope.launch {
+            configRepository.update(configItem.config.value)
+        }
     }
 
     suspend fun clearConfig(){
