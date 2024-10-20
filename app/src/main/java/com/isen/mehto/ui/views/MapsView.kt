@@ -7,6 +7,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -51,56 +52,61 @@ fun MapsScreen() {
     ) {
         Spacer(Modifier.height(30.dp))
 
-        Row(
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .clickable(onClick = { viewModel.expanded.value = true })
-                .fillMaxWidth(),
-        ) {
-            Text(
-                viewModel.items[viewModel.selectedIndex.intValue],
+        Box {
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
-                    .weight(1.0f)
-                    .border(BorderStroke(1.dp, Color.Black))
-                    .padding(10.dp),
-            )
+                    .clickable(onClick = { viewModel.expanded.value = true })
+                    .fillMaxWidth(),
+            ) {
+                Text(
+                    viewModel.items[viewModel.selectedIndex.intValue],
+                    modifier = Modifier
+                        .weight(1.0f)
+                        .border(BorderStroke(1.dp, Color.Black))
+                        .padding(10.dp),
+                )
 
-            if (viewModel.expanded.value) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Rounded.KeyboardArrowLeft,
-                    contentDescription = "DropDown Opened"
-                )
+                if (viewModel.expanded.value) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Rounded.KeyboardArrowLeft,
+                        contentDescription = "DropDown Opened"
+                    )
+                }
+                else {
+                    Icon(
+                        imageVector = Icons.Rounded.KeyboardArrowDown,
+                        contentDescription = "DropDown Closed"
+                    )
+                }
             }
-            else {
-                Icon(
-                    imageVector = Icons.Rounded.KeyboardArrowDown,
-                    contentDescription = "DropDown Closed"
-                )
+
+            DropdownMenu(
+                expanded = viewModel.expanded.value,
+                onDismissRequest = { viewModel.expanded.value = false },
+                modifier = Modifier
+                    .fillMaxWidth(maxWidthRatio)
+                    .background(Color.Gray.copy(alpha = 0.7f)),
+            ) {
+                viewModel.items.forEachIndexed { index, title ->
+                    DropdownMenuItem(
+                        text = { Text(text = title) },
+                        onClick = {
+                            viewModel.selectedIndex.intValue = index
+                            viewModel.expanded.value = false
+                            viewModel.selectMapToShow()
+                        }
+                    )
+                    if (index != viewModel.items.size - 1) DashedDivider()
+                }
             }
         }
+        
+        Spacer(Modifier.height(30.dp))
 
-        DropdownMenu(
-            expanded = viewModel.expanded.value,
-            onDismissRequest = { viewModel.expanded.value = false },
-            modifier = Modifier
-                .fillMaxWidth(maxWidthRatio)
-                .background(Color.Gray.copy(alpha = 0.7f)),
-        ) {
-            viewModel.items.forEachIndexed { index, title ->
-                DropdownMenuItem(
-                    text = { Text(text = title) },
-                    onClick = {
-                        viewModel.selectedIndex.intValue = index
-                        viewModel.expanded.value = false
-                        viewModel.selectMapToShow()
-                    }
-                )
-                if (index != viewModel.items.size - 1) DashedDivider()
-            }
-        }
+        ImageLoader(viewModel.currentMap.value)
     }
-    ImageLoader(viewModel.currentMap.value)
 }
 
 @Composable
@@ -111,6 +117,6 @@ fun ImageLoader(bitmap: Bitmap?) {
             bitmap = bitmap.asImageBitmap(),
             contentDescription = null,
             contentScale = ContentScale.Fit,
-            modifier = imageModifier
+            modifier = imageModifier.background(Color.White)
         )
 }
