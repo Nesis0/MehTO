@@ -29,6 +29,8 @@ class ForecastViewModel(
     val weatherWeek = _forecastWeek
     private val _temperatureUnit: MutableState<TemperatureUnit> = mutableStateOf(TemperatureUnit.CELSIUS)
     val temperatureUnit = _temperatureUnit
+    private val _postion: MutableState<Position> = mutableStateOf(Position(0.0,0.0))
+    val postion = _postion
 
     init {
         viewModelScope.launch {
