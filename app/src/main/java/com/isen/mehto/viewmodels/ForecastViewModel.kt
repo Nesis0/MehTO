@@ -1,9 +1,9 @@
 package com.isen.mehto.viewmodels
 
 import android.location.Location
-import androidx.compose.runtime.MutableFloatState
+import androidx.compose.runtime.MutableIntState
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -32,7 +32,7 @@ class ForecastViewModel(
     private val _temperatureUnit: MutableState<TemperatureUnit> = mutableStateOf(TemperatureUnit.CELSIUS)
     val temperatureUnit = _temperatureUnit
     private val position: MutableState<Position> = mutableStateOf(Position(0.0,0.0))
-    private val _sliderPosition: MutableFloatState = mutableFloatStateOf(0.0F)
+    private val _sliderPosition: MutableIntState = mutableIntStateOf(0)
     val sliderPosition = _sliderPosition
     private val _favorites = mutableStateOf(listOf<FavoriteLocation>())
     val favorites = _favorites
@@ -81,15 +81,15 @@ class ForecastViewModel(
         return Position(preferredLocation[0].latitude, preferredLocation[0].longitude)
     }
 
-    fun sliderChangePosition(newValue:Float){
+    fun sliderChangePosition(newValue: Int){
         viewModelScope.launch {
-            _sliderPosition.floatValue = newValue
+            _sliderPosition.intValue = newValue
             updatePosition(newValue)
         }
     }
 
-    private suspend fun updatePosition(sliderPosition: Float){
-        val sliderPositionInt = sliderPosition.toInt()
+    private suspend fun updatePosition(sliderPosition: Int){
+        val sliderPositionInt = sliderPosition
         if (sliderPositionInt == 0){
             position.value = getEffectivePosition()
         }
