@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
@@ -20,23 +19,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.isen.mehto.R
 import com.isen.mehto.data.models.Forecast
 import com.isen.mehto.data.models.TemperatureUnit
 import com.isen.mehto.ui.theme.DoubleBorderContainer
 import com.isen.mehto.viewmodels.ForecastViewModel
-import org.koin.androidx.compose.get
 import kotlin.math.roundToInt
 
 @Composable
-fun ForecastScreen() {
-    val viewModel = viewModel<ForecastViewModel>(
-        factory = ForecastViewModel.ViewModelFactory(get(), get(), get(), get())
-    )
-
+fun ForecastView(viewModel: ForecastViewModel) {
     Column(
-        Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
