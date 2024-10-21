@@ -28,7 +28,7 @@ Nous vous proposons des fonctionnalités exceptionnelles et inédites comme :
     
 - des paramètres 100% locaux car le respect de votre vie privée est, bien sûr, le coeur de nos préoccupations
 
-## Difficultés
+## Difficultés et améliorations futures
 
 ### Map
 
@@ -44,6 +44,9 @@ Notre API météo possède bon nombre de qualités ⁽ᶜ'ᵉˢᵗ ᵍʳᵃᵗ�
 
 - à l'instar de nos chers amis héritiers des pères fondateurs outre-atlantique qui préfèrent utiliser des parties du corps pour mesurer des distances contrairement à nous, fiers résidents du Vieux Continent, nos deux compères OpenStreetMap et OpenWeather ne se sont pas non plus accordés sur ce point-là. C'est pourquoi nous n'avons pas pu associer la carte interactive avec les filtres (températures, pressions...).
 
+### Feature anti-plèbe
+
+De nos jours, nous sommes incapables de vivre sans un accès à internet. Bien heureusement, MehTO ne déroge pas à la règle. C'est pourquoi nous avons décider de ne pas accorder le support aux personnes ne possédant pas d'accès à internet.
 
 # Ne pas contacter
 
