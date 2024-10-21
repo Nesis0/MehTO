@@ -1,5 +1,7 @@
 package com.isen.mehto.ui.views
 
+import android.content.Context
+import android.media.MediaPlayer
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -130,12 +132,24 @@ fun ManageFavoriteLocation(viewModel: FavoriteLocationViewModel) {
             }
         }
 
-        Button (
-            onClick = { viewModel.isAddFavoriteView.value = true },
-            content = { Icon(
-                imageVector = Icons.Rounded.Add,
-                contentDescription = "Add Icon"
-            ) },
+        val context: Context = get()
+        Button(
+            onClick = {
+                viewModel.isAddFavoriteView.value = true
+
+                // Play sound when button is clicked
+                val mediaPlayer = MediaPlayer.create(context, R.raw.mouton)
+                mediaPlayer.start()
+                mediaPlayer.setOnCompletionListener { mp ->
+                    mp.release() // Release resources once the sound has finished playing
+                }
+            },
+            content = {
+                Icon(
+                    imageVector = Icons.Rounded.Add,
+                    contentDescription = "Add Icon"
+                )
+            },
             modifier = Modifier.align(Alignment.BottomEnd),
         )
     }
