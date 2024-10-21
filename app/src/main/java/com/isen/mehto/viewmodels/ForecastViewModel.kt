@@ -1,7 +1,9 @@
 package com.isen.mehto.viewmodels
 
 import android.location.Location
+import androidx.compose.runtime.MutableIntState
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -31,6 +33,8 @@ class ForecastViewModel(
     val temperatureUnit = _temperatureUnit
     private val _postion: MutableState<Position> = mutableStateOf(Position(0.0,0.0))
     val postion = _postion
+    private val _sliderPosition: MutableIntState = mutableIntStateOf(0)
+    val sliderPsotion = _sliderPosition
 
     init {
         viewModelScope.launch {
