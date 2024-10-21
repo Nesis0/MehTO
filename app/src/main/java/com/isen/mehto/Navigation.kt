@@ -37,9 +37,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.isen.mehto.ui.views.ForecastScreen
 import com.isen.mehto.ui.views.SettingsScreen
 import com.isen.mehto.ui.theme.DashedDivider
+import com.isen.mehto.ui.views.CarouselScreen
 import com.isen.mehto.ui.views.FavoriteLocationScreen
 import com.isen.mehto.ui.views.MapsScreen
 import kotlinx.coroutines.CoroutineScope
@@ -48,7 +48,7 @@ import kotlinx.coroutines.launch
 data class DrawerMenu(val displayName: String, val route: String, val screen: @Composable () -> Unit)
 
 val menuItems: Array<DrawerMenu> = arrayOf (
-    DrawerMenu("Home", "weather") { ForecastScreen() },
+    DrawerMenu("Home", "weather") { CarouselScreen() },
     DrawerMenu("Favorites", "favorites") { FavoriteLocationScreen() },
     DrawerMenu("Maps", "maps") { MapsScreen() },
     DrawerMenu("Settings", "settings") { SettingsScreen() },

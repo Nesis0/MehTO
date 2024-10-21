@@ -1,9 +1,9 @@
 package com.isen.mehto.viewmodels
 
 import android.location.Location
-import androidx.compose.runtime.MutableIntState
+import androidx.compose.runtime.MutableFloatState
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -31,24 +31,30 @@ class ForecastViewModel(
     val weatherWeek = _forecastWeek
     private val _temperatureUnit: MutableState<TemperatureUnit> = mutableStateOf(TemperatureUnit.CELSIUS)
     val temperatureUnit = _temperatureUnit
-    private val _postion: MutableState<Position> = mutableStateOf(Position(0.0,0.0))
-    val postion = _postion
-    private val _sliderPosition: MutableIntState = mutableIntStateOf(0)
-    val sliderPsotion = _sliderPosition
+    private val position: MutableState<Position> = mutableStateOf(Position(0.0,0.0))
+    private val _sliderPosition: MutableFloatState = mutableFloatStateOf(0.0F)
+    val sliderPosition = _sliderPosition
+    private val _favorites = mutableStateOf(listOf<FavoriteLocation>())
+    val favorites = _favorites
 
     init {
         viewModelScope.launch {
             configRepository.initConfig()
-            val position: Position = getEffectivePosition()
-            _currentForecast.value = forecastRepository.getTodayWeather(position)
-            _forecastWeek.value = forecastRepository.getForecast(position)
+            position.value = getEffectivePosition()
+            updateRender()
             temperatureUnit.value = TemperatureUnit.valueOf(configRepository.read(ConfigType.UNIT.toString()) ?: "")
+            favorites.value = favoriteLocationRepository.getAllLocations()
         }
+    }
+
+    private suspend fun updateRender() {
+        _currentForecast.value = forecastRepository.getTodayWeather(position.value)
+        _forecastWeek.value = forecastRepository.getForecast(position.value)
     }
 
     private suspend fun getEffectivePosition(): Position {
         val isFavoritePreferred: Boolean = !configRepository.read(ConfigType.ENABLE_GEOLOCATION.toString()).toBoolean()
-        val isFavoriteEmpty = favoriteLocationRepository.getAllLocations().isEmpty()
+        val isFavoriteEmpty = favorites.value.isEmpty()
 
         if (isFavoritePreferred && !isFavoriteEmpty)
             return getPreferredLocationPosition()
@@ -70,9 +76,29 @@ class ForecastViewModel(
         return geolocationPos
     }
 
-    private suspend fun getPreferredLocationPosition(): Position {
-        val preferredLocation: List<FavoriteLocation> = favoriteLocationRepository.getAllLocations().sortedBy { it.preference_index }
+    private fun getPreferredLocationPosition(): Position {
+        val preferredLocation: List<FavoriteLocation> = favorites.value.sortedBy { it.preference_index }
         return Position(preferredLocation[0].latitude, preferredLocation[0].longitude)
+    }
+
+    fun sliderChangePosition(newValue:Float){
+        viewModelScope.launch {
+            _sliderPosition.floatValue = newValue
+            updatePosition(newValue)
+        }
+    }
+
+    private suspend fun updatePosition(sliderPosition: Float){
+        val sliderPositionInt = sliderPosition.toInt()
+        if (sliderPositionInt == 0){
+            position.value = getEffectivePosition()
+        }
+        else{
+            val sliderPositionPage = sliderPositionInt - 1
+            val newPosition = favorites.value[sliderPositionPage]
+            position.value = Position(newPosition.latitude,newPosition.longitude)
+        }
+        updateRender()
     }
 
     class ViewModelFactory(

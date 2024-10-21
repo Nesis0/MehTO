@@ -20,21 +20,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.isen.mehto.R
 import com.isen.mehto.data.models.Forecast
 import com.isen.mehto.data.models.TemperatureUnit
 import com.isen.mehto.ui.theme.DoubleBorderContainer
 import com.isen.mehto.viewmodels.ForecastViewModel
-import org.koin.androidx.compose.get
 import kotlin.math.roundToInt
 
 @Composable
-fun ForecastScreen() {
-    val viewModel = viewModel<ForecastViewModel>(
-        factory = ForecastViewModel.ViewModelFactory(get(), get(), get(), get())
-    )
-
+fun ForecastView(viewModel: ForecastViewModel) {
     Column(
         Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
