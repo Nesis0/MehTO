@@ -5,10 +5,10 @@ import androidx.room.Room
 import com.isen.mehto.data.repositories.db.impl.OfflineConfigRepository
 import com.isen.mehto.data.repositories.db.impl.OfflineFavoriteLocationRepository
 import com.isen.mehto.data.db.LocalDatabase
-import com.isen.mehto.data.repositories.api.ForecastRepository
-import com.isen.mehto.data.repositories.api.impl.ForecastRepositoryImpl
-import com.isen.mehto.data.forecast.api.ForecastApi
-import com.isen.mehto.data.forecast.api.WeatherServiceImpl
+import com.isen.mehto.data.repositories.api.forecast.ForecastRepository
+import com.isen.mehto.data.repositories.api.forecast.impl.ForecastRepositoryImpl
+import com.isen.mehto.data.forecast.api.forecast.ForecastApi
+import com.isen.mehto.data.forecast.api.forecast.WeatherServiceImpl
 import com.isen.mehto.data.forecast.api.map.MapApi
 import com.isen.mehto.data.geolocation.GeolocationService
 import com.isen.mehto.data.repositories.api.map.impl.MapRepositoryImpl

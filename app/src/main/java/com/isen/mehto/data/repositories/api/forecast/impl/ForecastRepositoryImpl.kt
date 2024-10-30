@@ -1,4 +1,4 @@
-package com.isen.mehto.data.repositories.api.impl
+package com.isen.mehto.data.repositories.api.forecast.impl
 
 import android.health.connect.datatypes.units.Percentage
 import com.isen.mehto.data.models.FiveDaysForecastResponse
@@ -8,8 +8,8 @@ import com.isen.mehto.data.models.TemperatureUnit
 import com.isen.mehto.data.models.Forecast
 import com.isen.mehto.data.models.SingleDayForecastResponse
 import com.isen.mehto.data.models.WeatherConditions
-import com.isen.mehto.data.repositories.api.ForecastRepository
-import com.isen.mehto.data.forecast.api.WeatherServiceImpl
+import com.isen.mehto.data.repositories.api.forecast.ForecastRepository
+import com.isen.mehto.data.forecast.api.forecast.WeatherServiceImpl
 import com.isen.mehto.data.models.Location
 import retrofit2.HttpException
 

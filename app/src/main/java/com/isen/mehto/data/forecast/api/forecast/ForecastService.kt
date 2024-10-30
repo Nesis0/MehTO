@@ -1,4 +1,4 @@
-package com.isen.mehto.data.forecast.api
+package com.isen.mehto.data.forecast.api.forecast
 
 import com.isen.mehto.data.models.FiveDaysForecastResponse
 import com.isen.mehto.data.models.Location

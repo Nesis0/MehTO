@@ -12,7 +12,7 @@ import com.isen.mehto.data.models.Forecast
 import com.isen.mehto.data.models.Location
 import com.isen.mehto.data.models.Position
 import com.isen.mehto.data.models.TemperatureUnit
-import com.isen.mehto.data.repositories.api.ForecastRepository
+import com.isen.mehto.data.repositories.api.forecast.ForecastRepository
 import com.isen.mehto.data.repositories.db.impl.OfflineConfigRepository
 import kotlinx.coroutines.launch
 

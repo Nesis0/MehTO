@@ -1,4 +1,4 @@
-package com.isen.mehto.data.repositories.api
+package com.isen.mehto.data.repositories.api.forecast
 
 import com.isen.mehto.data.models.Position
 import com.isen.mehto.data.models.Forecast
