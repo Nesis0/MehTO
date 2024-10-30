@@ -1,8 +1,8 @@
 package com.isen.mehto.data.repositories.geolocation
 
-import android.location.Location
+import com.isen.mehto.data.models.Position
 
 interface GeolocationRepository {
-    suspend fun getLastLocation(param: (Location?) -> Unit)
+    suspend fun getLastPosition(): Position
     suspend fun isGeolocationPermitted(): Boolean
 }
