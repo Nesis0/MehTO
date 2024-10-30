@@ -205,7 +205,6 @@ fun AddFavoriteLocationScreen(viewModel: FavoriteLocationViewModel) {
                     setBuiltInZoomControls(true)
                     controller.setZoom(15.0)
                     controller.setCenter(GeoPoint(cameraPositionState.value.lat.toDouble(), cameraPositionState.value.lon.toDouble()))
-                    println("test=" + cameraPositionState.value)
                 }
             },
             update = { mapView ->
